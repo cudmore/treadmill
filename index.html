@@ -339,7 +339,21 @@ versionStr=20160322
 mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
 mkdocs serve # serves built site on localhost at 127.0.0.1:8000
 
-mkdocs build #generates the site into site/
+mkdocs build #generates the site into docs/site/
+</code></pre>
+
+<p>Deploy to github gh-pages</p>
+<p>follow for deployment instructions</p>
+<p>https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/</p>
+<p>http://cudmore.github.io/mapmanager/</p>
+<pre><code>
+#on osx
+# this should deploy to github gh-pages
+cd /Users/cudmore/Sites/treadmill/docs
+mkdocs gh-deploy --clean 
+
+#site is then available at
+http://blog.cudmore.io/treadmill
 </code></pre></div>
         
     </div>
@@ -395,5 +409,5 @@ mkdocs build #generates the site into site/
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-04-04 02:10:20.293393
+Build Date UTC : 2016-04-04 02:26:44.679888
 -->
