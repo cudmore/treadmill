@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="author" content="Robert H Cudmore">  
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <title>treadmill</title>
+
+    <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="./css/base.css" rel="stylesheet">
+    <link href="./css/cinder.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+</head>
+
+<body class="homepage" >
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">treadmill</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li class="active">
+                        <a href=".">home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="about/">about</a>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                
+                    <li>
+                        <a href="http://github.com/cudmore">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="first-level active"><a href="#about">About</a></li>
+        
+    
+        <li class="first-level "><a href="#web-interface">Web Interface</a></li>
+        
+    
+        <li class="first-level "><a href="#server-installation">Server Installation</a></li>
+        
+            <li class="second-level"><a href="#python">Python</a></li>
+            
+        
+            <li class="second-level"><a href="#install-required-python-libraries">Install required python libraries</a></li>
+            
+        
+    
+        <li class="first-level "><a href="#arduino-setup">Arduino Setup</a></li>
+        
+            <li class="second-level"><a href="#upload-code-to-the-arduino">Upload code to the Arduino</a></li>
+            
+        
+            <li class="second-level"><a href="#hardware">Hardware</a></li>
+            
+        
+            <li class="second-level"><a href="#arduino-libraries">Arduino libraries</a></li>
+            
+        
+            <li class="second-level"><a href="#wiring-the-arduino">Wiring the arduino</a></li>
+            
+        
+    
+        <li class="first-level "><a href="#running-an-experiment">Running an experiment</a></li>
+        
+            <li class="second-level"><a href="#flask-interface">Flask interface</a></li>
+            
+        
+            <li class="second-level"><a href="#pure-python-interface">Pure Python interface</a></li>
+            
+        
+            <li class="second-level"><a href="#arduino-interface">Arduino interface</a></li>
+            
+        
+            <li class="second-level"><a href="#rolling-your-own-interface">Rolling your own interface</a></li>
+            
+        
+    
+        <li class="first-level "><a href="#links">Links</a></li>
+        
+    
+        <li class="first-level "><a href="#development">Development</a></li>
+        
+            <li class="second-level"><a href="#mkdocs">mkDocs</a></li>
+            
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h2 id="about">About</h2>
+<p>This is a python server and web based javascript duo that allows an experiment to be run using an Arduino microcontroller.</p>
+<h2 id="web-interface">Web Interface</h2>
+<p><IMG SRC="img/screenshot1.png" WIDTH=450 style="border:1px solid gray"></p>
+<p>The top section provides an interface to start/stop a trial and plots real-time feedback as the trial is running.</p>
+<p>The middle section provides an interface to set stimulus parameters for a trial and to upload these parameters to an Arduino. This section also provides a plot of what the trial will look like based on the set of parameters entered.</p>
+<h2 id="server-installation">Server Installation</h2>
+<h3 id="python">Python</h3>
+<p>Download and install <a href="https://www.continuum.io/why-anaconda">Anaconda</a>. Anaconda is a <a href="http://www.python.org/">python</a> installation that will install many commonly used libraries. It is much easier to get started with Anaconda rather than a basic installation of Python.</p>
+<h3 id="install-required-python-libraries">Install required python libraries</h3>
+<p>Install additional required python libraries using the included requirements.txt file</p>
+<p><code>pip install -r requirements.txt</code></p>
+<p>Here is the requirements.txt file</p>
+<pre><code>eventlet&gt;=0.18.4
+Flask&gt;=0.10.1
+Flask-Markdown&gt;=0.3
+Flask-SocketIO&gt;=1.0
+platformio&gt;=2.8.5
+plotly&gt;=1.9.6
+pyserial&gt;=3.0.1
+</code></pre>
+
+<h2 id="arduino-setup">Arduino Setup</h2>
+<h3 id="upload-code-to-the-arduino">Upload code to the Arduino</h3>
+<p>The source code for the Arduino can be found in <a href="https://github.com/cudmore/treadmill/blob/master/platformio/src/main.cpp">/platformio/src/main.cpp</a>.</p>
+<p>Use the standard Arduino IDE to upload main.cpp to your Arduino. Make sure you have the Arduino libraries installed (see below).</p>
+<p>If you prefer you can use <a href="http://platformio.org/">Platformio</a> to do everything from a command line. This has the distinct advantage that you can compile and upload code from a headless computer including a Raspberry Pi or any system running Linux.</p>
+<p>Platformio is a python library so you should be good to go with <code>pip install platformio</code>. Have a look <a href="http://docs.platformio.org/en/latest/quickstart.html#initialize-project">here</a> to create a platformio.ini file for your specific Arduino.</p>
+<p>Two example platformio.ini configurations</p>
+<pre><code>[env:uno]
+platform = atmelavr
+framework = arduino
+board = uno
+
+[env:pro16MHzatmega328]
+platform = atmelavr
+framework = arduino
+board = pro16MHzatmega328
+</code></pre>
+
+<p>Once platformio is configured, compile, upload, and clean with</p>
+<pre><code>platformio run #compile arduino code
+platformio run --target upload #compile and upload
+platformio run --target clean #clean project 
+
+platformio serialports monitor -p /dev/ttyUSB0 -b 115200 #a serial port monitor
+</code></pre>
+
+<p>Specifying the correct serial port for the Arduino is critical. Specify this in the treadmill.py file.</p>
+<pre><code>#serialStr = '/dev/tty.usbmodem618661' #teensy at work
+#serialStr = '/dev/tty.usbmodem618661' #teensy?
+#serialStr = '/dev/ttyUSB0' #hand soldered arduino micro (home debian)
+#serialStr = '/dev/tty.usbserial-A50285BI' # hand soldered at work
+serialStr = '/dev/ttyACM0' #uno
+</code></pre>
+
+<h3 id="hardware">Hardware</h3>
+<ul>
+<li>
+<p>Arduino Uno</p>
+</li>
+<li>
+<p>Stepper Motor, <a href="https://www.sparkfun.com/products/9238">Sparkfun - 09238</a>, $15</p>
+</li>
+<li>
+<p>Stepper motor driver, EasyDriver, <a href="https://www.sparkfun.com/products/12779">Sparkfun - 12779</a>, $15. Main website for <a href="http://www.schmalzhaus.com/EasyDriver/">EasyDriver</a></p>
+</li>
+<li>
+<p>Rotary encoder, <a href="http://www.digikey.com/product-detail/en/600128CBL/600CS-ND/53504">Honeywell-600-128-CBL</a>, <a href="http://sensing.honeywell.com/600%20series_005940-2-en_final_12sep12.pdf">.pdf</a> spec sheet, $37</p>
+</li>
+<li>
+<p>IR LED, 840-850 nm, <a href="https://www.sparkfun.com/products/9469">Sparkfun - 9469</a> $1 each (960 nm IR LEDs do not work well with Pi Noir camera)</p>
+</li>
+<li>
+<p>Actobotics at <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> and <a href="https://www.sparkfun.com/actobotics">Sparkfun</a>. Give <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> a shot, their visual guides and project ideas are really helpful in desining components. This can be your one stop shop for all structural components including frames, rods, bearings, clamps, and motor mounts.</p>
+</li>
+</ul>
+<h3 id="arduino-libraries">Arduino libraries</h3>
+<p>Key is to use libraries that do not block your main event loop. These are 'non-blocking' and usually written in C.</p>
+<ul>
+<li>
+<p><a href="http://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html">AccelStepper</a> library to control stepper motor</p>
+</li>
+<li>
+<p>Rotary encoder library from <a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">PJRC</a></p>
+</li>
+</ul>
+<h3 id="wiring-the-arduino">Wiring the arduino</h3>
+<ul>
+<li>Wire the stepper motor</li>
+<li>Wire the stepper motor to the stepper motor driver</li>
+<li>Wire the rotary encoder</li>
+<li>Wire the DIO pins to communicate with ScanImage</li>
+</ul>
+<h2 id="running-an-experiment">Running an experiment</h2>
+<p>At its core, an experiment is run on the Arduino using <a href="https://github.com/cudmore/treadmill/blob/master/platformio/src/main.cpp">main.cpp</a>. We have provided two additional interfaces: a flask app that serves a webpage and a backend python interface.</p>
+<h3 id="flask-interface">Flask interface</h3>
+<p>Running the flask interface with <code>python treadmill_app.py</code> will run a flask server and serve a website at <code>http://192.168.1.200:5000</code>. You can change the default web address and port in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
+<h3 id="pure-python-interface">Pure Python interface</h3>
+<p>You can easily use iPython or any python command interpreter to drive an experiment.</p>
+<pre><code class="python">import treadmill
+t = treadmill.treadmill() # create a treadmill object
+t.startTrial() # start a new trial
+t.stopTrial() # stop a trial
+t.GetArduinoState() # get the current state with all trial parameters (see Arduino getstate below).
+t.settrial('epochDur',5000) # set the value of 'epochDur' trial parameter to 5000 ms
+</code></pre>
+
+<p>The python interface and arduino interface share all trial parameter names. See Arduino section below for a list of all possible trial parameters.</p>
+<h3 id="arduino-interface">Arduino interface</h3>
+<p>The Arduino program <a href="https://github.com/cudmore/treadmill/blob/master/platformio/src/main.cpp">main.cpp</a> provides a simple serial interface to get and set parameters of a trial and to start and stop a trial. Once the program is uploaded to an Arduino, open your favorite serial port and start entering commands.</p>
+<pre><code>startTrial # start a trial
+stopTrial # stop a trial
+getState # 
+settrial,[name],[value]
+</code></pre>
+
+<p><code>settrial</code> takes the <code>name</code> and <code>value</code> of a trial parameter to set. The <code>name</code> needs to be one of: numPulse, numEpoch, epochDur, preDur, etc. These names match the 'Stimulus' parameters provided in the web interface. See the SetTrial() function in <a href="https://github.com/cudmore/treadmill/blob/master/platformio/src/main.cpp">main.cpp</a> for all possible trial parameters.</p>
+<p>Entering <code>getState</code> in a serial window and the Arduino will return the current values for all trial parameters. This is also a good way to find the names of trial parameters and then set them like <code>settrial,epochDur,5000</code>.</p>
+<pre><code>=== Arduino State ===
+trialNumber=0
+trialDur=1000
+numEpoch=1
+epochDur=1000
+preDur=1000
+postDur=1000
+numPulse=3
+pulseDur=1000
+useMotor=1
+motorDel=200
+motorDur=200
+motorSpeed=0
+motorMaxSpeed=0
+versionStr=20160322
+=== Done ===
+</code></pre>
+
+<h3 id="rolling-your-own-interface">Rolling your own interface</h3>
+<p>You can roll your own interface by either interfacing directly with the Arduino code in <a href="https://github.com/cudmore/treadmill/blob/master/platformio/src/main.cpp">main.cpp</a> or the python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>.</p>
+<h2 id="links">Links</h2>
+<p>Flask</p>
+<ul>
+<li>
+<p><a href="https://flask-socketio.readthedocs.org/en/latest/">flask-socketio</a></p>
+</li>
+<li>
+<p><a href="https://pythonhosted.org/Flask-Markdown/">flask-markdown</a></p>
+</li>
+<li>
+<p><a href="http://eventlet.net/">eventlet</a></p>
+</li>
+</ul>
+<p>Arduino</p>
+<ul>
+<li>
+<p><a href="http://platformio.org/">platormio</a></p>
+</li>
+<li>
+<p><a href="http://docs.platformio.org/en/latest/userguide/cmd_serialports.html#platformio-serialports-monitor">platform io serial port monitor</a></p>
+</li>
+<li>
+<p><a href="http://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html">AccelStepper</a></p>
+</li>
+<li>
+<p><a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">Rotary Encoder</a></p>
+</li>
+</ul>
+<h2 id="development">Development</h2>
+<h3 id="mkdocs">mkDocs</h3>
+<p>This documentation is written in markdown and a static site is generated with mkDocs. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.</p>
+<p>When writing markdown, serve an mkDocs site locally with</p>
+<pre><code>cd docs/
+mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
+mkdocs serve # serves built site on localhost at 127.0.0.1:8000
+
+mkdocs build #generates the site into site/
+</code></pre></div>
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Treadmill was created by Robert H Cudmore and is licensed under the <a href='https://github.com/cudmore/treadmill/blob/master/LICENSE'>MIT license</a><br></small>
+        
+        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    </footer>
+
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/bootstrap-3.0.3.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+    var base_url = '.';
+    </script>
+    <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
+    <script src="./js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-04-04 02:10:49.436132
+-->
