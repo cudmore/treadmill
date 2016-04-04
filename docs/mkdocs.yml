@@ -14,6 +14,6 @@ pages:
 include_next_prev: false
 include_search: false
 
-repo_url: http://github.com/cudmore
+repo_url: http://github.com/cudmore/treadmill
 
 copyright: "Treadmill was created by Robert H Cudmore and is licensed under the <a href='https://github.com/cudmore/treadmill/blob/master/LICENSE'>MIT license</a>"
