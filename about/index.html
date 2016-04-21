@@ -80,11 +80,15 @@
             
 
             <ul class="nav navbar-nav navbar-right">
-                
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 
                 
                     <li>
-                        <a href="http://github.com/cudmore">
+                        <a href="http://github.com/cudmore/treadmill">
                             
                                 <i class="fa fa-github"></i>
                             
@@ -102,11 +106,72 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
+        <li class="first-level active"><a href="#development">Development</a></li>
+        
+            <li class="second-level"><a href="#mkdocs">mkDocs</a></li>
+            
+        
+            <li class="second-level"><a href="#tweak-cinder">Tweak Cinder</a></li>
+            
+        
+            <li class="second-level"><a href="#deploy-to-github-gh-pages">Deploy to Github gh-pages</a></li>
+            
+        
+            <li class="second-level"><a href="#generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</a></li>
+            
+        
+    
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<p>about page for treadmill</p></div>
+<p>treadmill was created by <a href="http://robertcudmore.org">Robert H Cudmore</a>.</p>
+<h2 id="development">Development</h2>
+<h3 id="mkdocs">mkDocs</h3>
+<p>This documentation is written in markdown and a static site is generated with <a href="http://www.mkdocs.org">mkDocs</a> using the <a href="http://sourcefoundry.org/cinder/">Cinder</a> theme. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.</p>
+<p>When writing markdown, serve a mkDocs site locally with</p>
+<pre><code>cd docs/
+mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
+mkdocs serve # serves built site on localhost at 127.0.0.1:8000
+
+mkdocs build #generates the site into docs/site/
+</code></pre>
+
+<p>Deploy to github gh-pages by follow for <a href="https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/">deployment instructions</a>.</p>
+<p><code>mkdocs gh-deploy</code> will use the gh-pages branch of repository specified in <code>mkdocs.yml</code></p>
+<pre><code># this will deploy to github gh-pages specified in mkdocs.yml
+cd docs #should have mkdocs.yml file
+mkdocs gh-deploy --clean 
+
+#site is then available at
+http://cudmore.github.io/treadmill
+</code></pre>
+
+<h3 id="tweak-cinder">Tweak Cinder</h3>
+<p>Use 'pip show mkdocs' to figure out where your cinder files are</p>
+<blockquote>
+<blockquote>
+<p>pip show mkdocs
+/home/cudmore/anaconda2/lib/python2.7/site-packages</p>
+</blockquote>
+</blockquote>
+<h3 id="deploy-to-github-gh-pages">Deploy to Github gh-pages</h3>
+<p>Following the <a href="http://www.mkdocs.org/user-guide/deploying-your-docs/">mkDocs</a> help, deploy to github. Again, I am doing this on OSX. Not doing this on Debian because I do not have git/github properly configured.</p>
+<blockquote>
+<blockquote>
+<p>mkdocs build --clean
+mkdocs gh-deploy --clean</p>
+</blockquote>
+</blockquote>
+<h3 id="generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</h3>
+<p>Use <a href="https://github.com/jgrassler/mkdocs-pandoc">mkdocs-pandoc</a> to convert the mkdocs site into a single pdf. This creates a table of contents and appends all .md files using <a href="http://pandoc.org">pandoc</a> as a backend.</p>
+<pre><code>cd docs
+mkdocs2pandoc &gt; mydocs.pd
+pandoc --toc -f markdown+grid_tables+table_captions -o mydocs.pdf mydocs.pd   # Generate PDF
+pandoc --toc -f markdown+grid_tables -t epub -o mydocs.epub mydocs.pd         # Generate EPUB
+</code></pre>
+
+<p>I found it easy to do this on OSX using the pandoc installer. I did not get this working on Debian.</p></div>
         
     </div>
 

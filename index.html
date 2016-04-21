@@ -80,11 +80,15 @@
             
 
             <ul class="nav navbar-nav navbar-right">
-                
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 
                 
                     <li>
-                        <a href="http://github.com/cudmore">
+                        <a href="http://github.com/cudmore/treadmill">
                             
                                 <i class="fa fa-github"></i>
                             
@@ -102,7 +106,7 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#about">About</a></li>
+        <li class="first-level active"><a href="#introduction">Introduction</a></li>
         
     
         <li class="first-level "><a href="#web-interface">Web Interface</a></li>
@@ -150,17 +154,11 @@
         <li class="first-level "><a href="#links">Links</a></li>
         
     
-        <li class="first-level "><a href="#development">Development</a></li>
-        
-            <li class="second-level"><a href="#mkdocs">mkDocs</a></li>
-            
-        
-    
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="about">About</h2>
+<h2 id="introduction">Introduction</h2>
 <p>This is a python server and web based javascript duo that allows an experiment to be run using an Arduino microcontroller.</p>
 <h2 id="web-interface">Web Interface</h2>
 <p><IMG SRC="img/screenshot1.png" WIDTH=450 style="border:1px solid gray"></p>
@@ -237,38 +235,6 @@ serialStr = '/dev/ttyACM0' #uno
 <p>Actobotics at <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> and <a href="https://www.sparkfun.com/actobotics">Sparkfun</a>. Give <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> a shot, their visual guides and project ideas are really helpful in desining components. This can be your one stop shop for all structural components including frames, rods, bearings, clamps, and motor mounts.</p>
 </li>
 </ul>
-<p>Parts List</p>
-<table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>header 2</th>
-<th>header 3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>data 1</td>
-<td>data 2</td>
-<td>data 3</td>
-</tr>
-<tr>
-<td>data 12</td>
-<td>data 2</td>
-<td>data 3</td>
-</tr>
-<tr>
-<td>data 13</td>
-<td>data 2</td>
-<td>data 3</td>
-</tr>
-<tr>
-<td>data 14</td>
-<td>data 2</td>
-<td>data 3</td>
-</tr>
-</tbody>
-</table>
 <h3 id="arduino-libraries">Arduino libraries</h3>
 <p>Key is to use libraries that do not block your main event loop. These are 'non-blocking' and usually written in C.</p>
 <ul>
@@ -358,31 +324,7 @@ versionStr=20160322
 <li>
 <p><a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">Rotary Encoder</a></p>
 </li>
-</ul>
-<h2 id="development">Development</h2>
-<h3 id="mkdocs">mkDocs</h3>
-<p>This documentation is written in markdown and a static site is generated with mkDocs. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.</p>
-<p>When writing markdown, serve an mkDocs site locally with</p>
-<pre><code>cd docs/
-mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
-mkdocs serve # serves built site on localhost at 127.0.0.1:8000
-
-mkdocs build #generates the site into docs/site/
-</code></pre>
-
-<p>Deploy to github gh-pages</p>
-<p>follow for deployment instructions</p>
-<p>https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/</p>
-<p>http://cudmore.github.io/mapmanager/</p>
-<pre><code>
-#on osx
-# this should deploy to github gh-pages
-cd /Users/cudmore/Sites/treadmill/docs
-mkdocs gh-deploy --clean 
-
-#site is then available at
-http://blog.cudmore.io/treadmill
-</code></pre></div>
+</ul></div>
         
     </div>
 
@@ -437,5 +379,5 @@ http://blog.cudmore.io/treadmill
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-04-16 00:01:55.846649
+Build Date UTC : 2016-04-21 13:41:10.442327
 -->
