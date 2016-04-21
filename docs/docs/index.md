@@ -1,4 +1,4 @@
-## About
+## Introduction
 This is a python server and web based javascript duo that allows an experiment to be run using an Arduino microcontroller.
 
 
@@ -190,40 +190,6 @@ Arduino
 
 - [Rotary Encoder][17]
 
-## Development
-
-###  mkDocs
-
-This documentation is written in markdown and a static site is generated with mkDocs. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.
-
-When writing markdown, serve an mkDocs site locally with
-
-```
-cd docs/
-mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
-mkdocs serve # serves built site on localhost at 127.0.0.1:8000
-
-mkdocs build #generates the site into docs/site/
-```
-
-Deploy to github gh-pages
-
-follow for deployment instructions
-
-https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/
-
-
-http://cudmore.github.io/mapmanager/
-```
-
-#on osx
-# this should deploy to github gh-pages
-cd /Users/cudmore/Sites/treadmill/docs
-mkdocs gh-deploy --clean 
-
-#site is then available at
-http://blog.cudmore.io/treadmill
-```
 
 [1]: https://www.continuum.io/why-anaconda
 [2]: http://www.python.org/
