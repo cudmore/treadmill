@@ -20,4 +20,5 @@ copyright: "Treadmill was created by Robert H Cudmore and is licensed under the 
 
 
 extra:
-    include_search: false
+  include_search: false
+  #collapse_toc: true

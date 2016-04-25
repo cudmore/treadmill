@@ -80,7 +80,11 @@
             
 
             <ul class="nav navbar-nav navbar-right">
-                
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 
                 
                     <li>
@@ -108,6 +112,9 @@
             
         
             <li class="second-level"><a href="#tweak-cinder">Tweak Cinder</a></li>
+            
+        
+            <li class="second-level"><a href="#deploy-to-github-gh-pages">Deploy to Github gh-pages</a></li>
             
         
             <li class="second-level"><a href="#generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</a></li>
@@ -148,6 +155,14 @@ http://cudmore.github.io/treadmill
 /home/cudmore/anaconda2/lib/python2.7/site-packages</p>
 </blockquote>
 </blockquote>
+<h3 id="deploy-to-github-gh-pages">Deploy to Github gh-pages</h3>
+<p>Following the <a href="http://www.mkdocs.org/user-guide/deploying-your-docs/">mkDocs</a> help, deploy to github. Again, I am doing this on OSX. Not doing this on Debian because I do not have git/github properly configured.</p>
+<blockquote>
+<blockquote>
+<p>mkdocs build --clean
+mkdocs gh-deploy --clean</p>
+</blockquote>
+</blockquote>
 <h3 id="generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</h3>
 <p>Use <a href="https://github.com/jgrassler/mkdocs-pandoc">mkdocs-pandoc</a> to convert the mkdocs site into a single pdf. This creates a table of contents and appends all .md files using <a href="http://pandoc.org">pandoc</a> as a backend.</p>
 <pre><code>cd docs
@@ -156,7 +171,7 @@ pandoc --toc -f markdown+grid_tables+table_captions -o mydocs.pdf mydocs.pd   # 
 pandoc --toc -f markdown+grid_tables -t epub -o mydocs.epub mydocs.pd         # Generate EPUB
 </code></pre>
 
-<p>I found it easy to do this on OSX using the pandoc installer.</p></div>
+<p>I found it easy to do this on OSX using the pandoc installer. I did not get this working on Debian.</p></div>
         
     </div>
 
