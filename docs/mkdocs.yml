@@ -9,6 +9,7 @@ theme: cinder
 
 pages:
 - home: index.md
+- images: images.md
 - about: about.md
 
 include_next_prev: false

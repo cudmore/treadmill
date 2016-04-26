@@ -9,11 +9,17 @@
  *
  */
 
+//For information on exposing low-vevel interrupts on Arduino Uno
+// http://www.geertlangereis.nl/Electronics/Pin_Change_Interrupts/PinChange_en.html
+
 #include "Arduino.h"
 //#include "main.h"
 
 #include <AccelStepper.h> // http://www.airspayce.com/mikem/arduino/AccelStepper/index.html
 #include <Encoder.h> // http://www.pjrc.com/teensy/td_libs_Encoder.html
+
+//Uncomment this line if running on an Arduino Uno and compiling with the arduino IDE
+//#define _expose_interrupts_ 1
 
 //trial - epoch - pulse
 
@@ -109,8 +115,7 @@ void InitializeIO() {
 }
 /////////////////////////////////////////////////////////////
 //turn off this definition for teensy
-#define exposeInterrupts 0
-#if defined(exposeInterrupts)
+#if defined(_expose_interrupts_)
 void InitializeInterrupt() {
   cli();
   PCICR =0x02;
@@ -174,6 +179,11 @@ void setup()
   
   //Serial.begin(115200);
   Serial.begin(115200);
+
+  #if defined(_expose_interrupts_)
+	InitializeIO();
+	InitializeInterrupt();
+  #endif
   
 }
 
@@ -418,6 +428,6 @@ void loop()
 		}
 	}
 	
-	delay(1); //ms
+	delay(2); //ms
 
 }
