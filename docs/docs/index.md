@@ -225,14 +225,16 @@ socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
 socketio.run(app, host='', port=5010, use_reloader=True)
 ```
 
-#### Client side 
+### Client side 
 
-When you browse to the web server, the page that is served by Flask is using a number of client and server libraries.
+The web page that is served by Flask is using a number of client and server libraries. See [index.html][33] and [analysis2.html][34] for client-side code.
 
-- socket-io to update values in web-page without a full reload
-- plotly.js to plot the arduino stimulus
-- highcharts.js to plot a trial while it is running
-- jqGrid to display a table of trials from disk
+- [Socket-io][28] allows the flask server to push updates to web-page without reloading the page
+- [Bootstrap][27] for page layout, buttons, sliders, value display
+- [jquery][32] to handle logic of user interface
+- [plotly.js][29] to plot the arduino stimulus
+- [highcharts.js][30] to plot a trial while it is running
+- [jqgrid][31] to display a table of trials from disk
 
 ###  Rolling your own interface
 
@@ -289,3 +291,12 @@ Arduino
 [24]: http://docs.platformio.org/en/latest/userguide/cmd_serialports.html#platformio-serialports-monitor
 [25]: http://www.geertlangereis.nl/Electronics/Pin_Change_Interrupts/PinChange_en.html
 [26]: http://flask.pocoo.org
+
+[27]: http://getbootstrap.com
+[28]: https://flask-socketio.readthedocs.org/en/latest/
+[29]: https://plot.ly/javascript/
+[30]: http://www.highcharts.com
+[31]: http://www.trirand.com/blog/
+[32]: https://jquery.com
+[33]: https://github.com/cudmore/treadmill/blob/master/templates/index.html
+[34]: https://github.com/cudmore/treadmill/blob/master/templates/analysis2.html
