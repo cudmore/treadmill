@@ -333,8 +333,14 @@ t.startTrial() # start a new trial
 
 <p>The python interface and arduino interface share all trial parameter names.</p>
 <h3 id="web-interface_1">Web interface</h3>
-<p>A web interface is provided as a Flask server in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.</p>
-<p>Run the web interface with <code>python treadmill_app.py</code>. This will run a web server at <code>http://192.168.1.200:5000</code>. You can change the default address and port in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
+<p>A web interface is provided as a <a href="http://flask.pocoo.org">Flask</a> server in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.</p>
+<p>Run the web interface with <code>python treadmill_app.py</code>. This will run a web server at <code>http://192.168.1.200:5000</code>. You can change the default address and port in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a></p>
+<pre><code>#this will run Flask on the machines local ip (use this if on a lan)
+socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
+#this will run this on localhost, use this if using a single machine (no LAN needed)
+socketio.run(app, host='', port=5010, use_reloader=True)
+</code></pre>
+
 <h3 id="rolling-your-own-interface">Rolling your own interface</h3>
 <p>You can roll your own interface by interfacing directly with the Arduino code in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a>, the python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>, or the Flask server code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
 <h2 id="links">Links</h2>
@@ -419,5 +425,5 @@ t.startTrial() # start a new trial
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-04-27 13:34:30.296508
+Build Date UTC : 2016-04-27 13:39:40.499787
 -->
