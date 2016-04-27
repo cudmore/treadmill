@@ -102,17 +102,17 @@
         }, 
         {
             "location": "/images/", 
-            "text": "Prototype\n\n\nThis is the first prototype built on the scope. The actual treadmill is just a piece of cardboard.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinal\n\n\nThese are images of the final treadmill using a clear acrylic disk\n\n\nxxx", 
+            "text": "Prototype\n\n\nThis is the first prototype built on the scope.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinal\n\n\nThese are images of the final treadmill.\n\n\n[coming soon]", 
             "title": "images"
         }, 
         {
             "location": "/images/#prototype", 
-            "text": "This is the first prototype built on the scope. The actual treadmill is just a piece of cardboard.", 
+            "text": "This is the first prototype built on the scope.", 
             "title": "Prototype"
         }, 
         {
             "location": "/images/#final", 
-            "text": "These are images of the final treadmill using a clear acrylic disk  xxx", 
+            "text": "These are images of the final treadmill.  [coming soon]", 
             "title": "Final"
         }, 
         {
