@@ -225,15 +225,6 @@ socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
 socketio.run(app, host='', port=5010, use_reloader=True)
 ```
 
-#### Client side 
-
-When you browse to the web server, the page that is served by Flask is using a number of client and server libraries.
-
-- socket-io to update values in web-page without a full reload
-- plotly.js to plot the arduino stimulus
-- highcharts.js to plot a trial while it is running
-- jqGrid to display a table of trials from disk
-
 ###  Rolling your own interface
 
 You can roll your own interface by interfacing directly with the Arduino code in [treadmill.cpp][4], the python code in [treadmill.py][19], or the Flask server code in [treadmill_app.py][18].

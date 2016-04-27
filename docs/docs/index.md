@@ -1,11 +1,11 @@
 # 
 # Introduction
 
-Controlling an experiment with an Arduino microcontroller has become commonplace in scientific labs. A major bottle-neck in making these Arduino controlled experiments main-stream is the difficulty in their use. Once embedded into an experiment, the control of an Arduino often involves cognitively-demanding command line interaction which detracts from potentially complicated experiments. Thus, a simplified interface to control an Arduino during an experiment is necessary.
+Controlling an experiment with an Arduino microcontroller has become commonplace in scientific labs. A major bottle-neck in making experiments controlled with an Arduino main-stream is the difficulty in their use. Once embedded into an experiment, the control of an Arduino often involves cognitively-demanding command line interaction which detracts from potentially complicated experiments. Thus, a simplified interface to control an Arduino during an experiment is necessary.
 
 Here, we present a simplified and experimentally fool-proof web interface to control an Arduino using a point-and-click web interface. In particular, we have built a motorized treadmill for in vivo head-fixed two-photon imaging. We provide schematics for building the treadmill as well as Arduino and Python code to control the treadmill.
 
-This is an general-purpose open-source framework where Arduino based experiments can be controlled through a web interface. The source-code can be easily modified to meet unique experimental designs.
+This is a general-purpose open-source framework where Arduino based experiments can be controlled through a web interface. The source-code can be easily modified to meet new and unique experimental designs.
 
 
 ## Web Interface
@@ -214,9 +214,25 @@ The python interface and arduino interface share all trial parameter names.
 
 ###  Web interface
 
-A web interface is provided as a Flask server in [treadmill_app.py][18]. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.
+A web interface is provided as a [Flask][26] server in [treadmill_app.py][18]. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.
 
-Run the web interface with `python treadmill_app.py`. This will run a web server at `http://192.168.1.200:5000`. You can change the default address and port in [treadmill_app.py][18].
+Run the web interface with `python treadmill_app.py`. This will run a web server at `http://192.168.1.200:5000`. You can change the default address and port in [treadmill_app.py][18]
+
+```
+#this will run Flask on the machines local ip (use this if on a lan)
+socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
+#this will run this on localhost, use this if using a single machine (no LAN needed)
+socketio.run(app, host='', port=5010, use_reloader=True)
+```
+
+#### Client side 
+
+When you browse to the web server, the page that is served by Flask is using a number of client and server libraries.
+
+- socket-io to update values in web-page without a full reload
+- plotly.js to plot the arduino stimulus
+- highcharts.js to plot a trial while it is running
+- jqGrid to display a table of trials from disk
 
 ###  Rolling your own interface
 

@@ -8,7 +8,7 @@
     <meta name="author" content="Robert H Cudmore">  
     <link rel="shortcut icon" href="../../favicon.ico">
 
-    <title>images - treadmill</title>
+    <title>about - treadmill</title>
 
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -71,14 +71,14 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">images</a>
+                    <li >
+                        <a href="../images/">images</a>
                     </li>
                 
                 
                 
-                    <li >
-                        <a href="../about/">about</a>
+                    <li class="active">
+                        <a href="./">about</a>
                     </li>
                 
                 
@@ -112,47 +112,72 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#prototype">Prototype</a></li>
+        <li class="first-level active"><a href="#about">About</a></li>
         
-    
-        <li class="first-level "><a href="#final">Final</a></li>
+            <li class="second-level"><a href="#development">Development</a></li>
+            
+                <li class="third-level"><a href="#mkdocs">mkDocs</a></li>
+            
+                <li class="third-level"><a href="#tweak-cinder">Tweak Cinder</a></li>
+            
+                <li class="third-level"><a href="#deploy-to-github-gh-pages">Deploy to Github gh-pages</a></li>
+            
+                <li class="third-level"><a href="#generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</a></li>
+            
         
     
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="prototype">Prototype</h2>
-<p>This is the first prototype built on the scope.</p>
-<TABLE>
+<h1 id="about">About</h1>
+<p>treadmill was created by <a href="http://robertcudmore.org">Robert H Cudmore</a>.</p>
+<h2 id="development">Development</h2>
+<h3 id="mkdocs">mkDocs</h3>
+<p>This documentation is written in markdown and a static site is generated with <a href="http://www.mkdocs.org">mkDocs</a> using the <a href="http://sourcefoundry.org/cinder/">Cinder</a> theme. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.</p>
+<p>When writing markdown, serve a mkDocs site locally with</p>
+<pre><code>cd docs/
+mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
+mkdocs serve # serves built site on localhost at 127.0.0.1:8000
 
-<TR>
+mkdocs build #generates the site into docs/site/
+</code></pre>
 
-<TD>
-<IMG SRC="../img/treadmill-prototype-1.jpg" WIDTH=400 style="border:1px solid gray">
-</TD>
+<p>Deploy to github gh-pages by follow for <a href="https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/">deployment instructions</a>.</p>
+<p><code>mkdocs gh-deploy</code> will use the gh-pages branch of repository specified in <code>mkdocs.yml</code></p>
+<pre><code># this will deploy to github gh-pages specified in mkdocs.yml
+cd docs #should have mkdocs.yml file
+mkdocs gh-deploy --clean 
 
-<TD>
-<IMG SRC="../img/treadmill-prototype-2.jpg" WIDTH=400 style="border:1px solid gray">
-</TD>
+#site is then available at
+http://cudmore.github.io/treadmill
+</code></pre>
 
-<TR>
+<h3 id="tweak-cinder">Tweak Cinder</h3>
+<p>Use 'pip show mkdocs' to figure out where your cinder files are</p>
+<blockquote>
+<blockquote>
+<p>pip show mkdocs
+/home/cudmore/anaconda2/lib/python2.7/site-packages</p>
+</blockquote>
+</blockquote>
+<h3 id="deploy-to-github-gh-pages">Deploy to Github gh-pages</h3>
+<p>Following the <a href="http://www.mkdocs.org/user-guide/deploying-your-docs/">mkDocs</a> help, deploy to github. Again, I am doing this on OSX. Not doing this on Debian because I do not have git/github properly configured.</p>
+<blockquote>
+<blockquote>
+<p>mkdocs build --clean
+mkdocs gh-deploy --clean</p>
+</blockquote>
+</blockquote>
+<h3 id="generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</h3>
+<p>Use <a href="https://github.com/jgrassler/mkdocs-pandoc">mkdocs-pandoc</a> to convert the mkdocs site into a single pdf. This creates a table of contents and appends all .md files using <a href="http://pandoc.org">pandoc</a> as a backend.</p>
+<pre><code>cd docs
+mkdocs2pandoc &gt; mydocs.pd
+pandoc --toc -f markdown+grid_tables+table_captions -o mydocs.pdf mydocs.pd   # Generate PDF
+pandoc --toc -f markdown+grid_tables -t epub -o mydocs.epub mydocs.pd         # Generate EPUB
+</code></pre>
 
-<TD>
-<IMG SRC="../img/treadmill-prototype-3.jpg" WIDTH=400 style="border:1px solid gray">
-</TD>
-
-<TD>
-<IMG SRC="../img/treadmill-prototype-4.jpg" WIDTH=400 style="border:1px solid gray">
-</TD>
-
-</TR>
-
-</TABLE>
-
-<h2 id="final">Final</h2>
-<p>These are images of the final treadmill.</p>
-<p>[coming soon]</p></div>
+<p>I found it easy to do this on OSX using the pandoc installer. I did not get this working on Debian.</p></div>
         
     </div>
 

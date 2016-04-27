@@ -12,17 +12,17 @@ This is the first prototype built on the scope.
 </TD>
 
 <TD>
-<IMG SRC="../img/treadmill-prototype-2.jpg" WIDTH=400 style="border:1px solid gray">
+<IMG SRC="..//img/treadmill-prototype-2.jpg" WIDTH=400 style="border:1px solid gray">
 </TD>
 
 <TR>
 
 <TD>
-<IMG SRC="../img/treadmill-prototype-3.jpg" WIDTH=400 style="border:1px solid gray">
+<IMG SRC="..//img/treadmill-prototype-3.jpg" WIDTH=400 style="border:1px solid gray">
 </TD>
 
 <TD>
-<IMG SRC="../img/treadmill-prototype-4.jpg" WIDTH=400 style="border:1px solid gray">
+<IMG SRC="..//img/treadmill-prototype-4.jpg" WIDTH=400 style="border:1px solid gray">
 </TD>
 
 </TR>
