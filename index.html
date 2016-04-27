@@ -150,6 +150,8 @@
             
                 <li class="third-level"><a href="#web-interface_1">Web interface</a></li>
             
+                <li class="third-level"><a href="#client-side">Client side</a></li>
+            
                 <li class="third-level"><a href="#rolling-your-own-interface">Rolling your own interface</a></li>
             
         
@@ -341,13 +343,15 @@ socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
 socketio.run(app, host='', port=5010, use_reloader=True)
 </code></pre>
 
-<h4 id="client-side">Client side</h4>
-<p>When you browse to the web server, the page that is served by Flask is using a number of client and server libraries.</p>
+<h3 id="client-side">Client side</h3>
+<p>The web page that is served by Flask is using a number of client and server libraries. See <a href="https://github.com/cudmore/treadmill/blob/master/templates/index.html">index.html</a> and <a href="https://github.com/cudmore/treadmill/blob/master/templates/analysis2.html">analysis2.html</a> for client-side code.</p>
 <ul>
-<li>socket-io to update values in web-page without a full reload</li>
-<li>plotly.js to plot the arduino stimulus</li>
-<li>highcharts.js to plot a trial while it is running</li>
-<li>jqGrid to display a table of trials from disk</li>
+<li><a href="https://flask-socketio.readthedocs.org/en/latest/">Socket-io</a> allows the flask server to push updates to web-page without reloading the page</li>
+<li><a href="http://getbootstrap.com">Bootstrap</a> for page layout, buttons, sliders, value display</li>
+<li><a href="https://jquery.com">jquery</a> to handle logic of user interface</li>
+<li><a href="https://plot.ly/javascript/">plotly.js</a> to plot the arduino stimulus</li>
+<li><a href="http://www.highcharts.com">highcharts.js</a> to plot a trial while it is running</li>
+<li><a href="http://www.trirand.com/blog/">jqgrid</a> to display a table of trials from disk</li>
 </ul>
 <h3 id="rolling-your-own-interface">Rolling your own interface</h3>
 <p>You can roll your own interface by interfacing directly with the Arduino code in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a>, the python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>, or the Flask server code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
@@ -433,5 +437,5 @@ socketio.run(app, host='', port=5010, use_reloader=True)
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-04-27 13:51:03.554548
+Build Date UTC : 2016-04-27 14:19:07.208267
 -->
