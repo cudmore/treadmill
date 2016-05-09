@@ -2,4 +2,4 @@ This is documentation for controlling a behavioral experiment using an Arduino m
 
 Please see the documentation site at: [http://blog.cudmore.io/treadmill/](http://blog.cudmore.io/treadmill/)
 
-<IMG SRC="https://github.com/cudmore/treadmill/blob/master/docs/docs/img/screenshot1.png">
+<IMG SRC="https://github.com/cudmore/treadmill/blob/master/docs/docs/img/screenshot1.png" WIDTH=450 style="border:1px solid gray">
