@@ -1,44 +1,63 @@
-# 
 # Introduction
 
-Controlling an experiment with an Arduino microcontroller has become commonplace in scientific labs. A major bottle-neck in making experiments controlled with an Arduino main-stream is the difficulty in their use. Once embedded into an experiment, the control of an Arduino often involves cognitively-demanding command line interaction which detracts from potentially complicated experiments. Thus, a simplified interface to control an Arduino during an experiment is necessary.
+This is documentation for controlling a behavioral experiment using an Arduino microcontroller with a Python based web interface. First, we document building an Arduino controlled motorized circular treadmill. Next, we provide Python source code to control an experiment through a web-browser. Our aim is to provide a starting point for open-source behavioral experiments that can be extended to new experimental designs. Please see the accompanying [manuscript](manuscript.md).
 
-Here, we present a simplified and experimentally fool-proof web interface to control an Arduino using a point-and-click web interface. In particular, we have built a motorized treadmill for in vivo head-fixed two-photon imaging. We provide schematics for building the treadmill as well as Arduino and Python code to control the treadmill.
+<a name="webinterface"></a>
+<IMG SRC="img/screenshot1.png" ALIGN=LEFT WIDTH=450 style="border:1px solid gray">
 
-This is a general-purpose open-source framework where Arduino based experiments can be controlled through a web interface. The source-code can be easily modified to meet new and unique experimental designs.
-
-
-## Web Interface
-
-<IMG SRC="img/screenshot1.png" WIDTH=450 style="border:1px solid gray">
+**Figure 1. Web-browser interface.**
 
 The top section provides an interface to start/stop a trial and plots real-time feedback as the trial is running.
 
-The middle section provides an interface to set stimulus parameters for a trial and to upload these parameters to an Arduino. This section also provides a plot of what the trial will look like based on the set of parameters entered.
+The **Stimulus** section provides an interface to set stimulus parameters for a trial and to upload these parameters to an Arduino. This section also provides a plot of what the trial will look like based on the set of stimulus parameters entered (this plot is not shown in this example).
 
+<BR CLEAR="ALL"/>
 
-## Arduino Setup
+##  System design
 
-###  Hardware
+The core system consists of an Arduino, a stepper motor and motor driver, and a rotary encoder. The system comes together with a circular [treadmill](images.md) that is driven by the stepper motor and whos position is recorded with the rotary encoder. Finally, a host computer to program the Arduino and control an experiment is needed. Any computer running Matlab should suffice. We strongly recommend using a Linux based Raspberry Pi to take full advantage of the provided Python code including code to synchronize running the treadmill with video acquisition.
 
-- Arduino Uno
+The Arduino can be controlled with serial commands and can be triggered with general purpose TTL pulses. By relying on serial commands and TTL pulses, this system is not dependent on the details of other pieces of equipment for the experiment and can be extended to new and unique experimental configurations.
 
+For example, we are routinely using the treadmill while simultaneously acquiring in vivo two-photon images using ScanImage software (in Matlab) with National Instruments data acquisition cards.
+
+See the [parts list](parts.md) for a full list of parts, prices, and links to buy online.
+
+### Arduino
+
+The majority of Arduino compatible micro-controllers will work with the code provided. We suggest you start by using an Arduino [Uno][35]. Two alternative micro-controllers are the [Mega][48] and the [Teensy][49]. Both of these boards provide more low-level interrupts and have more memory than an Uno. In addition, the Teensy has a more advanced and faster Arm Cortex processor over the ATmega in the Uno and Mega.
+
+- [Arduino Uno][35], [Sparkfun][36], [Adafruit][37], $25
 - Stepper Motor, [Sparkfun - 09238][7], $15
-
 - Stepper motor driver, EasyDriver, [Sparkfun - 12779][8], $15. Main website for [EasyDriver][9]
-
 - Rotary encoder, [Honeywell-600-128-CBL][10], [.pdf][11] spec sheet, $37
 
-- IR LED, 840-850 nm, [Sparkfun - 9469][12] $1 each (960 nm IR LEDs do not work well with Pi Noir camera)
+### Raspberry Pi
 
-- Actobotics at [ServoCity][13] and [Sparkfun][14]. Give [ServoCity][15] a shot, their visual guides and project ideas are really helpful in desining components. This can be your one stop shop for all structural components including frames, rods, bearings, clamps, and motor mounts.
+The [Raspberry Pi][38] is a fully functional credit-card sized computer with USB, Ethernet, Wifi, and HDMI ports. It can be used as a host computer to program an Arduino using the Arduino IDE. A truly unique feature of the Pi is that it has built in digital IO (DIO). Thus, a Raspberry Pi can send/receive TTL signals to/from most laboratory equipment including an Arduino. The Pi can be equipped with a dedicated video camera (5MP or 8MP) that can be controlled from Python and can be precisely triggered by TTL pulses using DIO ports. Given its small footprint, a Raspberry Pi is easily integrated into the same electronics box as the Arduino.
 
-###  Wiring the arduino
+- [Raspberry Pi][38], [AdaFruit][39], [Element14][40], $40
+- [Pi NoIR][43] 5MP Camera, [Adafruit][44], [Element14][45], $30
+- IR LED, 840-850 nm, [Sparkfun - 9469][12] $1 each (960 nm IR LEDs do not work well with Pi NoIR camera)
+- 4-channel Logic Level Converter (Bi-Directional), [Sparkfun][41], [Adafruit][42], $4
 
-- Wire the stepper motor
-- Wire the stepper motor to the stepper motor driver
-- Wire the rotary encoder
-- Wire the DIO pins to communicate with ScanImage
+One caveat is the the DIO ports on the Pi can only handle 3.5V TTL pulses while most laboratory equipment (including most Arduinos and National Instruments boards) use 5V TTL pulses. Thus, a logic-level converter is needed to convert between 3.5V on the Pi to the standard 5V for other equipment. 
+
+###  Wiring the system
+
+- Wire the stepper motor to the motor driver
+- Wire the Arduino to the motor driver
+- Wire the rotary encoder to the Arduino
+- Wire the Arduino to Scan Image
+- Optionally, wire the Raspberry Pi to Scan Image via a 3.5V to 5V level shifter
+
+<A HREF="img/treadmill_bb.png"><IMG SRC="img/treadmill_bb.png" WIDTH=450 style="border:0px solid gray"></A>
+
+### Treadmill
+
+See the [images](images.md) page and the [treadmill section](parts.md#treadmill) of the parts list.
+
+Finding the building blocks for hardware can be time-consuming and frustrating. A good starting point is to use **Actobotics** parts from [ServoCity][13] or [Sparkfun][14]. In particular, [ServoCity][15], has made a useful set of visual guides and project ideas that are really helpful in designing hardware components. Structural components include: frames, rods, bearings, clamps, and motor mounts.
 
 ## Upload code to the Arduino
 
@@ -50,76 +69,56 @@ You want to use these non-blocking libraries otherwise your code will not perfor
 
 - Rotary encoder library from [PJRC][17]
 
-###  Upload using the Arduino IDE
+###  Arduino IDE
 
 The source code for the Arduino can be found in [/arduino/src/treadmill.cpp][4].
 
 Use the standard Arduino IDE to upload treadmill.cpp to your Arduino. Make sure you have the required Arduino libraries installed. Also be sure you understand how to activate addition [low level interrupts](index.md#lowlevelinterrupts) if using an Arduino Uno.
 
-### Upload using platformio
+### Platformio
 
 If you prefer you can use [Platformio][5] to do everything from a command line. This has the distinct advantage that you can compile and upload code from a headless computer including a Raspberry Pi or any system running Linux.
 
-Platformio is a python library so you should be good to go with `pip install platformio`. 
+Install platformio
 
-Have a look [here][6] to create a platformio.ini file for your specific Arduino. Here are three different board configurations
+    pip install platformio
 
-```
-platformio init --board uno # arduino uno
-platformio init --board pro16MHzatmega328 # generic arduino pro 
-platformio init --board nodemcuv2 # arduino node mcu
-```
+Initialize a Platformio project and specify compilation for Arduino Uno
 
-After 'platformio init', platformio.ini will have environment configurations. You only want to have one of these blocks at a time to simplify compilation. For example [env:uno].
+	platformio init --board uno # arduino uno
 
-```
-[env:uno]
-platform = atmelavr
-framework = arduino
-board = uno
-build_flags = -D _expose_interrupts_ #creates compiler directive
+Put treadmill.cpp into platformio /src/ folder
 
-[env:pro16MHzatmega328]
-platform = atmelavr
-framework = arduino
-board = pro16MHzatmega328
+Tweek platformio.ini
 
-[env:nodemcuv2]
-platform = espressif
-framework = arduino
-board = nodemcuv2
-upload_port = /dev/ttyUSB0
+    [env:uno]
+    platform = atmelavr
+    framework = arduino
+    board = uno
+    build_flags = -D _expose_interrupts_ #creates compiler directive
 
-```
+Compile and upload code
 
-Compile, upload, and clean Arduino code with
+    platformio run #compile arduino code
+    platformio run --target upload #compile and upload
+    platformio run --target clean #clean project 
 
-```
-platformio run #compile arduino code
-platformio run --target upload #compile and upload
-platformio run --target clean #clean project 
-```
+Open a serial port with platformio
 
-Finally, once the code is running you can open a serial port connection with
+    platformio serialports monitor -p /dev/ttyUSB0 -b 115200 #a serial port monitor
 
-```
-platformio serialports monitor -p /dev/ttyUSB0 -b 115200 #a serial port monitor
-```
+Specify the correct serial port
 
-Specifying the correct serial port for the Arduino is critical. Specify this in the treadmill.py file.
-
-```
-#serialStr = '/dev/tty.usbmodem618661' #teensy at work
-#serialStr = '/dev/tty.usbmodem618661' #teensy?
-#serialStr = '/dev/ttyUSB0' #hand soldered arduino micro (home debian)
-#serialStr = '/dev/tty.usbserial-A50285BI' # hand soldered at work
-serialStr = '/dev/ttyACM0' #uno
-```
+    #serialStr = '/dev/tty.usbmodem618661' #teensy at work
+    #serialStr = '/dev/tty.usbmodem618661' #teensy?
+    #serialStr = '/dev/ttyUSB0' #hand soldered arduino micro (home debian)
+    #serialStr = '/dev/tty.usbserial-A50285BI' # hand soldered at work
+    serialStr = '/dev/ttyACM0' #uno
 
 <a name="lowlevelinterrupts"></a>
 ### Low Level Interrupts
 
-The Uno only comes with two pins (2 and 3) capable of low-level interrupts and more pins need to be broken out. We need two low level interrupts for the Rotary Encoder and a few more to quickly intercept TTL pulses of the FrameClock.
+The Arduino Uno only comes with two pins (2 and 3) capable of low-level interrupts and more pins need to be broken out. We need two low level interrupts for the Rotary Encoder, another for a TTL trigger and another for TTL pulses coming from a frame clock.
 
 See [Pin-change interrupts][25] for information on exposing additional pins as low-level interrupts.
 
@@ -133,13 +132,11 @@ We have included a compiler directive `_expose_interrupts_` in treadmill.cpp tha
 //#define _expose_interrupts_ 1
 ```
 
-## Server Setup
-
-###  Python
+## Python server setup
 
 Download and install [Anaconda][1]. Anaconda is a [python][2] installation that will install many commonly used libraries. It is much easier to get started with Anaconda rather than a basic installation of Python.
 
-###  Install required python libraries
+###  Python libraries
 
 Install additional required python libraries using the included requirements.txt file
 
@@ -156,10 +153,20 @@ platformio>=2.8.5
 plotly>=1.9.6
 pyserial>=3.0.1
 ```
+Required python libraries on Raspberry Pi
+
+`pip install -r raspberry_requirements.txt`
+
+```
+picamera
+RPi.GPIO
+```
 
 ## Running an experiment
 
 At its core, an experiment is run on the Arduino using [treadmill.cpp][4]. We have provided two additional interfaces: a python interface and a web based interface.
+
+You can roll your own interface by interfacing directly with the Arduino code in [treadmill.cpp][4], the python code in [treadmill.py][19], or the web server code in [treadmill_app.py][18].
 
 ###  Arduino interface
 
@@ -196,7 +203,7 @@ versionStr=20160322
 ```
 
 ###  Python interface
-You can  use iPython or any Python command interpreter to drive an experiment. You can also write your own python code to interface with the core python code in [treadmill.py][19].
+You can  use [iPython/Jupyter][47] or any Python command interpreter to drive an experiment. You can also write your own python code to interface with the core python code in [treadmill.py][19].
 
 Here is a short example of running an experiment in Python
 
@@ -214,20 +221,21 @@ The python interface and arduino interface share all trial parameter names.
 
 ###  Web interface
 
-A web interface is provided as a [Flask][26] server in [treadmill_app.py][18]. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.
+A [web interface](index.md#webinterface) is provided in [treadmill_app.py][18]. This uses the [Flask][26] python library. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.
 
-Run the web interface with `python treadmill_app.py`. This will run a web server at `http://192.168.1.200:5000`. You can change the default address and port in [treadmill_app.py][18]
+Run the web interface with `python treadmill_app.py`. You can change the default IP address and port of the web server in [treadmill_app.py][18].
 
-```
-#this will run Flask on the machines local ip (use this if on a lan)
-socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
-#this will run this on localhost, use this if using a single machine (no LAN needed)
-socketio.run(app, host='', port=5010, use_reloader=True)
-```
+- To run the web server on the machines local network IP, port 5010
 
-### Client side 
+    >socketio.run(app, host='0.0.0.0', port=5010, use_reloader=True)
 
-The web page that is served by Flask is using a number of client and server libraries. See [index.html][33] and [analysis2.html][34] for client-side code.
+- To run the web server on localhost 127.0.0.1:5010, use this if using a single machine (no LAN needed)
+
+    >socketio.run(app, host='', port=5010, use_reloader=True)
+
+#### Client side 
+
+The [web interface](index.md#webinterface) that is served by Flask is using a number of client and server libraries. See [index.html][33] and [analysis2.html][34] for client-side code.
 
 - [Socket-io][28] allows the flask server to push updates to web-page without reloading the page
 - [Bootstrap][27] for page layout, buttons, sliders, value display
@@ -236,29 +244,6 @@ The web page that is served by Flask is using a number of client and server libr
 - [highcharts.js][30] to plot a trial while it is running
 - [jqgrid][31] to display a table of trials from disk
 
-###  Rolling your own interface
-
-You can roll your own interface by interfacing directly with the Arduino code in [treadmill.cpp][4], the python code in [treadmill.py][19], or the Flask server code in [treadmill_app.py][18].
-
-## Links
-
-Flask
-
-- [flask-socketio][20]
-
-- [flask-markdown][23]
-
-- [eventlet][21]
-
-Arduino
-
-- [platormio][5]
-
-- [platform io serial port monitor][24]
-
-- [AccelStepper][16]
-
-- [Rotary Encoder][17]
 
 
 [1]: https://www.continuum.io/why-anaconda
@@ -300,3 +285,18 @@ Arduino
 [32]: https://jquery.com
 [33]: https://github.com/cudmore/treadmill/blob/master/templates/index.html
 [34]: https://github.com/cudmore/treadmill/blob/master/templates/analysis2.html
+[35]: https://www.arduino.cc/en/main/arduinoBoardUno
+[36]: https://www.sparkfun.com/products/11021
+[37]: https://www.adafruit.com/products/50
+[38]: https://www.raspberrypi.org/products/
+[39]: https://www.adafruit.com/category/105
+[40]: https://www.element14.com/community/community/raspberry-pi
+[41]: https://www.sparkfun.com/products/12009
+[42]: https://www.adafruit.com/products/757
+[43]: https://www.raspberrypi.org/products/pi-noir-camera/
+[44]: https://www.adafruit.com/product/1567
+[45]: https://www.element14.com/community/search.jspa?q=pi+noir
+[46]: https://github.com/cudmore/treadmill/blob/master/VideoServer.py
+[47]: https://ipython.org
+[48]: https://www.arduino.cc/en/Main/arduinoBoardMega2560
+[49]: https://www.pjrc.com/store/teensy32.html

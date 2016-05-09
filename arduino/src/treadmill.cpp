@@ -94,6 +94,7 @@ StepperMotor motor;
 RotaryEncoder rotaryencoder;
 SimulateScanImage si;
 
+//stepper and myEncoder are the variable names we will use below
 AccelStepper stepper(AccelStepper::DRIVER,motor.stepPin,motor.dirPin);
 Encoder myEncoder(rotaryencoder.pinA, rotaryencoder.pinB);
 
@@ -370,6 +371,9 @@ void updateMotor(unsigned long now) {
 			digitalWrite(13, LOW);
 			motor.isRunning = false;
 			serialOut(now, "motorstop", trial.currentPulse);
+		}
+		if (motor.isRunning) {
+			stepper.runSpeed();
 		}
 	}
 }

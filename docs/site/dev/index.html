@@ -8,7 +8,7 @@
     <meta name="author" content="Robert H Cudmore">  
     <link rel="shortcut icon" href="../../favicon.ico">
 
-    <title>about - treadmill</title>
+    <title>dev - treadmill</title>
 
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -83,8 +83,8 @@
                 
                 
                 
-                    <li >
-                        <a href="../dev/">dev</a>
+                    <li class="active">
+                        <a href="./">dev</a>
                     </li>
                 
                 
@@ -95,8 +95,8 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">about</a>
+                    <li >
+                        <a href="../about/">about</a>
                     </li>
                 
                 
@@ -130,15 +130,118 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#about">About</a></li>
+        <li class="first-level active"><a href="#development">Development</a></li>
+        
+            <li class="second-level"><a href="#mkdocs">mkDocs</a></li>
+            
+        
+            <li class="second-level"><a href="#deploy-to-github-gh-pages">Deploy to Github gh-pages</a></li>
+            
+        
+            <li class="second-level"><a href="#tweak-cinder">Tweak Cinder</a></li>
+            
+        
+            <li class="second-level"><a href="#generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</a></li>
+            
+        
+            <li class="second-level"><a href="#platformio">Platformio</a></li>
+            
+        
+            <li class="second-level"><a href="#5v-relay">5V Relay</a></li>
+            
         
     
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="about">About</h1>
-<p>treadmill was created by <a href="http://robertcudmore.org">Robert H Cudmore</a>.</p></div>
+<h2 id="development">Development</h2>
+<h3 id="mkdocs">mkDocs</h3>
+<p>This documentation is written in markdown and a static site is generated with <a href="http://www.mkdocs.org">mkDocs</a> using the <a href="http://sourcefoundry.org/cinder/">Cinder</a> theme. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.</p>
+<p>When writing markdown, serve a mkDocs site locally with</p>
+<pre><code>cd docs/
+mkdocs serve --dev-addr=0.0.0.0:8000 # serves built site on LAN IP
+mkdocs serve # serves built site on localhost at 127.0.0.1:8000
+
+mkdocs build #generates the site into docs/site/
+</code></pre>
+
+<h3 id="deploy-to-github-gh-pages">Deploy to Github gh-pages</h3>
+<p>Deploy to github gh-pages by follow mkDocs <a href="https://mkdocs.readthedocs.org/en/stable/user-guide/deploying-your-docs/">deployment instructions</a>.</p>
+<p><code>mkdocs gh-deploy</code> will use the gh-pages branch of repository specified in <code>mkdocs.yml</code></p>
+<pre><code># this will deploy to github gh-pages specified in mkdocs.yml
+cd docs #should have mkdocs.yml file
+mkdocs build --clean
+mkdocs gh-deploy --clean 
+#site is then available at
+http://cudmore.github.io/treadmill
+</code></pre>
+<p>I am doing this on OSX. Not doing this on Debian because I do not have git/github properly configured.</p>
+<h3 id="tweak-cinder">Tweak Cinder</h3>
+<p>Along the way I have actually contributed to <strong>Cinder</strong>, the mkDocs template that makes this site. See <a href="https://github.com/chrissimpkins/cinder/pull/11">here</a>.</p>
+<p>Use 'pip show mkdocs' to figure out where your cinder files are</p>
+<pre><code>pip show mkdocs
+/home/cudmore/anaconda2/lib/python2.7/site-packages
+</code></pre>
+<h3 id="generate-a-single-pdf-from-mkdocs-site">Generate a single PDF from mkDocs site</h3>
+<p>Use <a href="https://github.com/jgrassler/mkdocs-pandoc">mkdocs-pandoc</a> to convert the mkdocs site into a single pdf. This creates a table of contents and appends all .md files using <a href="http://pandoc.org">pandoc</a> as a backend.</p>
+<pre><code>cd docs
+mkdocs2pandoc &gt; mydocs.pd
+pandoc --toc -f markdown+grid_tables+table_captions -o mydocs.pdf mydocs.pd   # Generate PDF
+pandoc --toc -f markdown+grid_tables -t epub -o mydocs.epub mydocs.pd         # Generate EPUB
+</code></pre>
+
+<p>I found it easy to do this on OSX using the pandoc installer. I did not get this working on Debian.</p>
+<h3 id="platformio">Platformio</h3>
+<p>If you prefer you can use [Platformio][5] to do everything from a command line. This has the distinct advantage that you can compile and upload code from a headless computer including a Raspberry Pi or any system running Linux.</p>
+<p>Platformio is a python library so you should be good to go with <code>pip install platformio</code>. </p>
+<p>Have a look [here][6] to create a platformio.ini file for your specific Arduino. Here are three different board configurations</p>
+<pre><code>platformio init --board uno # arduino uno
+platformio init --board pro16MHzatmega328 # generic arduino pro 
+platformio init --board nodemcuv2 # arduino node mcu
+</code></pre>
+
+<p>After 'platformio init', platformio.ini will have environment configurations. You only want to have one of these blocks at a time to simplify compilation. For example [env:uno].</p>
+<pre><code>[env:uno]
+platform = atmelavr
+framework = arduino
+board = uno
+build_flags = -D _expose_interrupts_ #creates compiler directive
+
+#[env:pro16MHzatmega328]
+#platform = atmelavr
+#framework = arduino
+#board = pro16MHzatmega328
+
+#[env:nodemcuv2]
+#platform = espressif
+#framework = arduino
+#board = nodemcuv2
+#upload_port = /dev/ttyUSB0
+</code></pre>
+
+<p>Compile, upload, and clean Arduino code with</p>
+<pre><code>platformio run #compile arduino code
+platformio run --target upload #compile and upload
+platformio run --target clean #clean project 
+</code></pre>
+
+<p>Finally, once the code is running you can open a serial port connection with</p>
+<pre><code>platformio serialports monitor -p /dev/ttyUSB0 -b 115200 #a serial port monitor
+</code></pre>
+
+<p>Specifying the correct serial port for the Arduino is critical. Specify this in the treadmill.py file.</p>
+<pre><code>#serialStr = '/dev/tty.usbmodem618661' #teensy at work
+#serialStr = '/dev/tty.usbmodem618661' #teensy?
+#serialStr = '/dev/ttyUSB0' #hand soldered arduino micro (home debian)
+#serialStr = '/dev/tty.usbserial-A50285BI' # hand soldered at work
+serialStr = '/dev/ttyACM0' #uno
+</code></pre>
+
+<h3 id="5v-relay">5V Relay</h3>
+<p>A relay allows a 3.5 or 5 V DIO pin to turn a higher voltage switch on and off. For example, you use a 5V relay to turn a 12V line on and off.</p>
+<p>How to wire a 5V relay is here</p>
+<p>http://www.codeguru.com/IoT/understanding-relays-in-iot-development.html</p></div>
         
     </div>
 
