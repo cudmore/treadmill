@@ -1,5 +1,27 @@
-#20160229
-#treadmill
+'''
+20160229
+treadmill
+
+this is a master driver to run an experiment
+this is NOT implemented to be a slave
+
+if on Raspberry, turn on dio
+	- dio to trigger a trial
+	- dio on a new frame
+	- dio to stop a trial
+	
+todo:
+	include VideoServer.py
+	not sure how to quickly trigger camera?
+	if we are really master, then on startTrial we can just start the video
+	- pass dio new frame to running pi camera
+	
+	- not sure if two python threads can share same dio pin (probably not)
+	
+	- maybe just make camera respond to dio start/stop/frame on its own set of three pins
+		different from the start/stop/frame we are using here !!!
+		
+'''
 
 import serial
 import time

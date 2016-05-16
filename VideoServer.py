@@ -3,6 +3,12 @@
 # Date: 20151205
 
 '''
+todo
+	- add dio to start/stop
+	- add dio to add a frame # to frames
+'''
+
+'''
 Purpose: A circular video stream that can start/stop video acquisition
 
 ToDo
