@@ -161,11 +161,14 @@
         
             <li class="second-level"><a href="#running-an-experiment">Running an experiment</a></li>
             
-                <li class="third-level"><a href="#arduino-interface">Arduino interface</a></li>
+                <li class="third-level"><a href="#arduino-serial-interface">Arduino serial interface</a></li>
             
                 <li class="third-level"><a href="#python-interface">Python interface</a></li>
             
                 <li class="third-level"><a href="#web-interface">Web interface</a></li>
+            
+        
+            <li class="second-level"><a href="#conlusion">Conlusion</a></li>
             
         
     
@@ -174,7 +177,7 @@
         <div class="col-md-9" role="main">
 
 <h1 id="introduction">Introduction</h1>
-<p>This is documentation for controlling a behavioral experiment using an Arduino microcontroller with a Python based web interface. First, we document building an Arduino controlled motorized circular treadmill. Next, we provide Python source code to control an experiment through a web-browser. Our aim is to provide a starting point for open-source behavioral experiments that can be extended to new experimental designs. Please see the accompanying <a href="manuscript/">manuscript</a>.</p>
+<p>This is documentation for controlling a behavioral experiment using an Arduino microcontroller using Python. The experiment can be controlled from a Python command line or with an easy to use web browser interface. Included in this system is an option to simultaneously record video using a Rapsberry Pi video camera. Our goal is to provide a starting point for open-source behavioral experiments that can be extended to new experimental designs.</p>
 <p><a name="webinterface"></a>
 <IMG SRC="img/screenshot1.png" ALIGN=LEFT WIDTH=450 style="border:1px solid gray"></p>
 <p><strong>Figure 1. Web-browser interface.</strong></p>
@@ -182,12 +185,13 @@
 <p>The <strong>Stimulus</strong> section provides an interface to set stimulus parameters for a trial and to upload these parameters to an Arduino. This section also provides a plot of what the trial will look like based on the set of stimulus parameters entered (this plot is not shown in this example).</p>
 <p><BR CLEAR="ALL"/></p>
 <h2 id="system-design">System design</h2>
-<p>The core system consists of an Arduino, a stepper motor and motor driver, and a rotary encoder. The system comes together with a circular <a href="images/">treadmill</a> that is driven by the stepper motor and whos position is recorded with the rotary encoder. Finally, a host computer to program the Arduino and control an experiment is needed. Any computer running Matlab should suffice. We strongly recommend using a Linux based Raspberry Pi to take full advantage of the provided Python code including code to synchronize running the treadmill with video acquisition.</p>
-<p>The Arduino can be controlled with serial commands and can be triggered with general purpose TTL pulses. By relying on serial commands and TTL pulses, this system is not dependent on the details of other pieces of equipment for the experiment and can be extended to new and unique experimental configurations.</p>
-<p>For example, we are routinely using the treadmill while simultaneously acquiring in vivo two-photon images using ScanImage software (in Matlab) with National Instruments data acquisition cards.</p>
+<p>The core system consists of an Arduino, a stepper motor and motor driver, and a rotary encoder. The system comes together with a circular <a href="images/">treadmill</a> that can be driven by the stepper motor. Finally, the position of the treadmill is recorded with the rotary encoder.</p>
+<p>The Arduino can be controlled with serial commands and can be triggered with general purpose digital input-output (GPIO) pulses. By relying on serial commands and GPIO pulses, this system is not dependent on the details of other pieces of equipment already in place for an experiment and can be extended to new and unique experimental configurations.</p>
+<p>By using the provided python code, an optional Raspberry Pi video camera can be integrated into this system. Otherwise, any computer can be used as a host to drive an experiment from within Python.</p>
+<p>We are routinely using this treadmill and video aquisition system while simultaneously acquiring in vivo two-photon images using ScanImage software (in Matlab) with National Instruments data acquisition cards.</p>
 <p>See the <a href="parts/">parts list</a> for a full list of parts, prices, and links to buy online.</p>
 <h3 id="arduino">Arduino</h3>
-<p>The majority of Arduino compatible micro-controllers will work with the code provided. We suggest you start by using an Arduino <a href="https://www.arduino.cc/en/main/arduinoBoardUno">Uno</a>. Two alternative micro-controllers are the <a href="https://www.arduino.cc/en/Main/arduinoBoardMega2560">Mega</a> and the <a href="https://www.pjrc.com/store/teensy32.html">Teensy</a>. Both of these boards provide more low-level interrupts and have more memory than an Uno. In addition, the Teensy has a more advanced and faster Arm Cortex processor over the ATmega in the Uno and Mega.</p>
+<p>The majority of Arduino compatible micro-controllers will work with the code provided. We suggest starting with an Arduino <a href="https://www.arduino.cc/en/main/arduinoBoardUno">Uno</a>. Two alternative micro-controllers are the <a href="https://www.arduino.cc/en/Main/arduinoBoardMega2560">Mega</a> and the <a href="https://www.pjrc.com/store/teensy32.html">Teensy</a>. Both of these boards provide more low-level interrupts and have more memory than an Uno. In addition, the Teensy has a more advanced and faster Arm Cortex processor over the ATmega processor in the Uno and Mega.</p>
 <ul>
 <li><a href="https://www.arduino.cc/en/main/arduinoBoardUno">Arduino Uno</a>, <a href="https://www.sparkfun.com/products/11021">Sparkfun</a>, <a href="https://www.adafruit.com/products/50">Adafruit</a>, $25</li>
 <li>Stepper Motor, <a href="https://www.sparkfun.com/products/9238">Sparkfun - 09238</a>, $15</li>
@@ -195,76 +199,43 @@
 <li>Rotary encoder, <a href="http://www.digikey.com/product-detail/en/600128CBL/600CS-ND/53504">Honeywell-600-128-CBL</a>, <a href="http://sensing.honeywell.com/600%20series_005940-2-en_final_12sep12.pdf">.pdf</a> spec sheet, $37</li>
 </ul>
 <h3 id="raspberry-pi">Raspberry Pi</h3>
-<p>The <a href="https://www.raspberrypi.org/products/">Raspberry Pi</a> is a fully functional credit-card sized computer with USB, Ethernet, Wifi, and HDMI ports. It can be used as a host computer to program an Arduino using the Arduino IDE. A truly unique feature of the Pi is that it has built in digital IO (DIO). Thus, a Raspberry Pi can send/receive TTL signals to/from most laboratory equipment including an Arduino. The Pi can be equipped with a dedicated video camera (5MP or 8MP) that can be controlled from Python and can be precisely triggered by TTL pulses using DIO ports. Given its small footprint, a Raspberry Pi is easily integrated into the same electronics box as the Arduino.</p>
+<p>The <a href="https://www.raspberrypi.org/products/">Raspberry Pi</a> is a fully functional credit-card sized computer with USB, Ethernet, Wifi, and HDMI ports. It can be used as a host computer to program an Arduino using the Arduino IDE. A unique feature of the Pi is that it has built in digital GPIO. Thus, a Raspberry Pi can send/receive GPIO signals to/from most laboratory equipment including an Arduino. The Pi can be equipped with a dedicated video camera (5MP or 8MP) that can be controlled from Python and can be (relatively) precisely triggered by GPIO pulses. Given its small footprint, a Raspberry Pi is easily integrated into the same electronics box as the Arduino.</p>
 <ul>
 <li><a href="https://www.raspberrypi.org/products/">Raspberry Pi</a>, <a href="https://www.adafruit.com/category/105">AdaFruit</a>, <a href="https://www.element14.com/community/community/raspberry-pi">Element14</a>, $40</li>
 <li><a href="https://www.raspberrypi.org/products/pi-noir-camera/">Pi NoIR</a> 5MP Camera, <a href="https://www.adafruit.com/product/1567">Adafruit</a>, <a href="https://www.element14.com/community/search.jspa?q=pi+noir">Element14</a>, $30</li>
 <li>IR LED, 840-850 nm, <a href="https://www.sparkfun.com/products/9469">Sparkfun - 9469</a> $1 each (960 nm IR LEDs do not work well with Pi NoIR camera)</li>
 <li>4-channel Logic Level Converter (Bi-Directional), <a href="https://www.sparkfun.com/products/12009">Sparkfun</a>, <a href="https://www.adafruit.com/products/757">Adafruit</a>, $4</li>
 </ul>
-<p>One caveat is the the DIO ports on the Pi can only handle 3.5V TTL pulses while most laboratory equipment (including most Arduinos and National Instruments boards) use 5V TTL pulses. Thus, a logic-level converter is needed to convert between 3.5V on the Pi to the standard 5V for other equipment. </p>
+<p>Please note, the GPIO ports on the Rapsberry Pi are only 3.5V tolerant while most laboratory equipment (including many Arduinos and National Instruments boards) use 5V GPIO. Thus, a logic-level converter is needed to convert between 3.5V on the Pi to 5V on other equipment.</p>
 <h3 id="wiring-the-system">Wiring the system</h3>
 <ul>
 <li>Wire the stepper motor to the motor driver</li>
 <li>Wire the Arduino to the motor driver</li>
 <li>Wire the rotary encoder to the Arduino</li>
 <li>Wire the Arduino to Scan Image</li>
-<li>Optionally, wire the Raspberry Pi to Scan Image via a 3.5V to 5V level shifter</li>
+<li>Wire the Raspberry Pi to Scan Image via a 3.5V to 5V level shifter</li>
 </ul>
+<p>Here, we are wiring the system to interact with Scan Image. This can easily be modified by wiring the system to other in-place acquisition systems such as those from Scientifica, Bruger (Prarie), Zeiss, or Nikon.</p>
 <p><A HREF="img/treadmill_bb.png"><IMG SRC="img/treadmill_bb.png" WIDTH=450 style="border:0px solid gray"></A></p>
 <h3 id="treadmill">Treadmill</h3>
 <p>See the <a href="images/">images</a> page and the <a href="parts/#treadmill">treadmill section</a> of the parts list.</p>
-<p>Finding the building blocks for hardware can be time-consuming and frustrating. A good starting point is to use <strong>Actobotics</strong> parts from <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> or <a href="https://www.sparkfun.com/actobotics">Sparkfun</a>. In particular, <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a>, has made a useful set of visual guides and project ideas that are really helpful in designing hardware components. Structural components include: frames, rods, bearings, clamps, and motor mounts.</p>
+<p>Building the treamill is easy but finding the pieces to build with can be time-consuming and frustrating. A good starting point is to use <strong>Actobotics</strong> parts from <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a> or <a href="https://www.sparkfun.com/actobotics">Sparkfun</a>. In particular, <a href="https://www.servocity.com/html/actoboticstm.html">ServoCity</a>, has made a useful set of visual guides and project ideas that are really helpful in designing hardware components. Structural components include: frames, rods, bearings, clamps, and motor mounts.</p>
 <h2 id="upload-code-to-the-arduino">Upload code to the Arduino</h2>
+<p>The source code for the Arduino can be found in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">/arduino/src/treadmill.cpp</a>.</p>
 <h3 id="required-libraries">Required libraries</h3>
-<p>You want to use these non-blocking libraries otherwise your code will not perform well. If you don't use these libraries then code to turn the stepper motor will block other code like reading the rotary encoder. </p>
+<p>Non-blocking libraries should be used, otherwise the system will not perform well. Without non-blocking libraries, the code to turn the stepper motor will block other code like reading the rotary encoder and vica versa. Using these non-blocking libraries ensures that (but do not gaurantee) the stepper motor movement does not stutter and all the rotary encoder positions are logged.</p>
 <ul>
-<li>
-<p><a href="http://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html">AccelStepper</a> library to control stepper motor</p>
-</li>
-<li>
-<p>Rotary encoder library from <a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">PJRC</a></p>
-</li>
+<li><a href="http://www.airspayce.com/mikem/arduino/AccelStepper/classAccelStepper.html">AccelStepper</a> library to control stepper motor</li>
+<li>Rotary encoder library from <a href="https://www.pjrc.com/teensy/td_libs_Encoder.html">PJRC</a></li>
 </ul>
 <h3 id="arduino-ide">Arduino IDE</h3>
-<p>The source code for the Arduino can be found in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">/arduino/src/treadmill.cpp</a>.</p>
-<p>Use the standard Arduino IDE to upload treadmill.cpp to your Arduino. Make sure you have the required Arduino libraries installed. Also be sure you understand how to activate addition <a href=".#lowlevelinterrupts">low level interrupts</a> if using an Arduino Uno.</p>
+<p>Use the standard <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a> to upload treadmill.cpp to an Arduino. Make sure the required Arduino libraries are installed. Be sure to activate additional <a href=".#lowlevelinterrupts">low level interrupts</a> if using an Arduino Uno.</p>
 <h3 id="platformio">Platformio</h3>
-<p>If you prefer you can use <a href="http://platformio.org/">Platformio</a> to do everything from a command line. This has the distinct advantage that you can compile and upload code from a headless computer including a Raspberry Pi or any system running Linux.</p>
-<p>Install platformio</p>
-<pre><code>pip install platformio
-</code></pre>
-<p>Initialize a Platformio project and specify compilation for Arduino Uno</p>
-<pre><code>platformio init --board uno # arduino uno
-</code></pre>
-<p>Put treadmill.cpp into platformio /src/ folder</p>
-<p>Tweek platformio.ini</p>
-<pre><code>[env:uno]
-platform = atmelavr
-framework = arduino
-board = uno
-build_flags = -D _expose_interrupts_ #creates compiler directive
-</code></pre>
-<p>Compile and upload code</p>
-<pre><code>platformio run #compile arduino code
-platformio run --target upload #compile and upload
-platformio run --target clean #clean project
-</code></pre>
-<p>Open a serial port with platformio</p>
-<pre><code>platformio serialports monitor -p /dev/ttyUSB0 -b 115200 #a serial port monitor
-</code></pre>
-<p>Specify the correct serial port</p>
-<pre><code>#serialStr = '/dev/tty.usbmodem618661' #teensy at work
-#serialStr = '/dev/tty.usbmodem618661' #teensy?
-#serialStr = '/dev/ttyUSB0' #hand soldered arduino micro (home debian)
-#serialStr = '/dev/tty.usbserial-A50285BI' # hand soldered at work
-serialStr = '/dev/ttyACM0' #uno
-</code></pre>
+<p>Code can also be uploaded to an Arduino using <a href="http://platformio.org/">PlatformIo</a>. This has the distinct advantage that code can be compiled and uploaded from the command line on a headless computer including a Raspberry Pi or any system running Linux. Please see my blog post to Install PlatformIO, compile code and upload it to an Arduino.</p>
 <p><a name="lowlevelinterrupts"></a></p>
 <h3 id="low-level-interrupts">Low Level Interrupts</h3>
-<p>The Arduino Uno only comes with two pins (2 and 3) capable of low-level interrupts and more pins need to be broken out. We need two low level interrupts for the Rotary Encoder, another for a TTL trigger and another for TTL pulses coming from a frame clock.</p>
-<p>See <a href="http://www.geertlangereis.nl/Electronics/Pin_Change_Interrupts/PinChange_en.html">Pin-change interrupts</a> for information on exposing additional pins as low-level interrupts.</p>
-<p>We have included a compiler directive <code>_expose_interrupts_</code> in treadmill.cpp that if activated will run code to expose additional interrupts. </p>
+<p>The Arduino Uno only comes with two pins (2 and 3) capable of low-level interrupts and more pins need to be enabled. Two low level interrupts are needed for the Rotary Encoder, another for a GPIO trigger, and another for GPIO pulses coming from a frame clock. See <a href="http://www.geertlangereis.nl/Electronics/Pin_Change_Interrupts/PinChange_en.html">Pin-change interrupts</a> for information on exposing additional pins as low-level interrupts.</p>
+<p>We have included a compiler directive <code>_expose_interrupts_</code> in the Arduino code, <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a>, that if activated will run code to expose the needed interrupts on an Arduino Uno.</p>
 <ul>
 <li>If using platformio this is taken care of in the [env] section of platformio.ini</li>
 <li>If using the arduino IDE, <code>define _expose_interrupts_ = 1</code> must be included in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a></li>
@@ -295,18 +266,18 @@ RPi.GPIO
 </code></pre>
 
 <h2 id="running-an-experiment">Running an experiment</h2>
-<p>At its core, an experiment is run on the Arduino using <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a>. We have provided two additional interfaces: a python interface and a web based interface.</p>
-<p>You can roll your own interface by interfacing directly with the Arduino code in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a>, the python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>, or the web server code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
-<h3 id="arduino-interface">Arduino interface</h3>
-<p>The Arduino program <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a> provides a simple serial interface to get and set parameters of a trial and to start and stop a trial. Once the program is uploaded to an Arduino, open your favorite serial port and start entering commands.</p>
+<p>At its core, an experiment is run on an Arduino by interacting with <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a> through a serial port interface. In addition, a Python command line interface and a web based interface are provided.</p>
+<p>These interfaces can be extended by directly interacting with the Arduino code in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a> (with serial commands), the python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>, or the web server code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
+<h3 id="arduino-serial-interface">Arduino serial interface</h3>
+<p>The Arduino code <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a> provides a set of serial port commands to get/set parameters and start/stop a trial. Once the code is uploaded to an Arduino, any serial port interface will allow control of an experiment as follows...</p>
 <pre><code>startTrial # start a trial
 stopTrial # stop a trial
-getState # 
+getState #
 settrial,[name],[value]
 </code></pre>
 
 <p><code>settrial</code> takes the <code>name</code> and <code>value</code> of a trial parameter to set. The <code>name</code> needs to be one of: numPulse, numEpoch, epochDur, preDur, etc. These names match the 'Stimulus' parameters provided in the web interface. See the SetTrial() function in <a href="https://github.com/cudmore/treadmill/blob/master/arduino/src/treadmill.cpp">treadmill.cpp</a> for all possible trial parameters.</p>
-<p>Entering <code>getState</code> in a serial window and the Arduino will return the current values for all trial parameters. This is also a good way to find the names of trial parameters and then set them like <code>settrial,epochDur,5000</code>.</p>
+<p>Entering <code>getState</code> in a serial port interface and the Arduino will return the current values for all trial parameters. This is a good way to find the names of trial parameters and then set them. For example, <code>settrial,epochDur,5000</code>.</p>
 <pre><code>=== Arduino State ===
 trialNumber=0
 trialDur=1000
@@ -326,8 +297,7 @@ versionStr=20160322
 </code></pre>
 
 <h3 id="python-interface">Python interface</h3>
-<p>You can  use <a href="https://ipython.org">iPython/Jupyter</a> or any Python command interpreter to drive an experiment. You can also write your own python code to interface with the core python code in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>.</p>
-<p>Here is a short example of running an experiment in Python</p>
+<p>An experiment can be controlled from within Python by interacting with <a href="https://github.com/cudmore/treadmill/blob/master/treadmill.py">treadmill.py</a>. This includes interaction from a Python command line interface, a <a href="https://ipython.org">iPython/Jupyter</a> interface, or custom written Python scripts. Here is an example of running an experiment from a Python script.</p>
 <pre><code class="python">import treadmill
 t = treadmill.treadmill() # create a treadmill object
 t.startTrial() # start a new trial
@@ -337,11 +307,14 @@ t.settrial('epochDur',5000) # set the value of 'epochDur' trial parameter to 500
 t.startTrial() # start a new trial
 </code></pre>
 
-<p>The python interface and arduino interface share all trial parameter names.</p>
+<p>The Python interface and Arduino interface share all trial parameter names.</p>
 <h3 id="web-interface">Web interface</h3>
-<p>A <a href=".#webinterface">web interface</a> is provided in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>. This uses the <a href="http://flask.pocoo.org">Flask</a> python library. Flask is a micro-framework that allows a web-server to be created and controlled all from within python.</p>
-<p>Run the web interface with <code>python treadmill_app.py</code>. You can change the default IP address and port of the web server in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
+<p>An experiment can also be controlled through a web browser interface. Run the web interface with <code>python treadmill_app.py</code>. The code for this web interface, in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>, uses the <a href="http://flask.pocoo.org">Flask</a> Python library. Flask is a micro-framework that allows a web-server to be created and controlled all from within Python.</p>
+<h4 id="configuring-the-web-interface">Configuring the web interface</h4>
 <ul>
+<li>
+<p>Change the default IP address and port of the web server in <a href="https://github.com/cudmore/treadmill/blob/master/treadmill_app.py">treadmill_app.py</a>.</p>
+</li>
 <li>
 <p>To run the web server on the machines local network IP, port 5010</p>
 <blockquote>
@@ -356,7 +329,7 @@ t.startTrial() # start a new trial
 </li>
 </ul>
 <h4 id="client-side">Client side</h4>
-<p>The <a href=".#webinterface">web interface</a> that is served by Flask is using a number of client and server libraries. See <a href="https://github.com/cudmore/treadmill/blob/master/templates/index.html">index.html</a> and <a href="https://github.com/cudmore/treadmill/blob/master/templates/analysis2.html">analysis2.html</a> for client-side code.</p>
+<p>The <a href=".#webinterface">web interface</a> that is using a number of client and server libraries. See <a href="https://github.com/cudmore/treadmill/blob/master/templates/index.html">index.html</a> and <a href="https://github.com/cudmore/treadmill/blob/master/templates/analysis2.html">analysis2.html</a> for client-side code.</p>
 <ul>
 <li><a href="https://flask-socketio.readthedocs.org/en/latest/">Socket-io</a> allows the flask server to push updates to web-page without reloading the page</li>
 <li><a href="http://getbootstrap.com">Bootstrap</a> for page layout, buttons, sliders, value display</li>
@@ -364,7 +337,9 @@ t.startTrial() # start a new trial
 <li><a href="https://plot.ly/javascript/">plotly.js</a> to plot the arduino stimulus</li>
 <li><a href="http://www.highcharts.com">highcharts.js</a> to plot a trial while it is running</li>
 <li><a href="http://www.trirand.com/blog/">jqgrid</a> to display a table of trials from disk</li>
-</ul></div>
+</ul>
+<h2 id="conlusion">Conlusion</h2>
+<p>This is a good system.</p></div>
         
     </div>
 
@@ -419,5 +394,5 @@ t.startTrial() # start a new trial
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-05-09 13:38:46.589285
+Build Date UTC : 2016-05-20 22:25:21.852320
 -->
