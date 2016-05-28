@@ -12,7 +12,7 @@ pages:
 - images: images.md
 - parts: parts.md
 - dev: dev.md
-- manuscript: manuscript.md
+#- manuscript: manuscript.md
 - about: about.md
 
 include_next_prev: false

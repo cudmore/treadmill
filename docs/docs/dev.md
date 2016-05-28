@@ -1,5 +1,7 @@
 ## Development
 
+These are development notes taken during the development of the Treadmill.
+
 ### mkDocs
 
 This documentation is written in markdown and a static site is generated with [mkDocs][25] using the [Cinder][26] theme. Previously I have used Jekyll which is amazing. Going with mkDocs to see if a simple site is acceptable.

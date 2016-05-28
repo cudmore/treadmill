@@ -308,7 +308,7 @@ def plotTrialButton(message):
 	filePath = message['data']
 	print 'plotTrialButton() filename:' + filePath
 	divStr = myplotlyplot(filePath,'div')
-	emit('plotlyDiv', {'plotDiv': divStr})
+	emit('lastTrialPlot', {'plotDiv': divStr})
 
 @socketio.on('plotTrialHeaderID', namespace=namespace)
 def plotTrialHeader(message):

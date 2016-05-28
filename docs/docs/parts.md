@@ -3,39 +3,47 @@
 
 ## Arduino
 
-|Quatity	|Item	|Cost	|Part #	|Link
-| -----		| -----	| -----	| -----	| -----
-|1	|Arduino Uno	|$xxx	|Uno	|xxx
-|1	|Motor Driver	|$xxx	|xxx	|xxx
+Use the Teensy32 Arduino because it has a smaller form factor, more powerful processor, more low level interrupts, and more memory then an Arduino Unu R3. Use the Big Easy Motor Driver to use larger stepper motors.
+
+|Quatity	|Item	|Cost	|Link
+| -----		| -----	| -----	| -----
+|1	|Arduino Uno R3	|$25	|[arduino.cc](https://www.arduino.cc/en/main/arduinoBoardUno)
+|1	|Teensy32	|$30	|[pjrc.com](https://www.pjrc.com/store/teensy32.html)
+|1	|Easy Driver Motor Driver	|$15	|[sparkfun](https://www.sparkfun.com/products/12779)
+|1	|Big Easy Driver Motor Driver	|$20	|[sparkfun](https://www.sparkfun.com/products/12859)
 
 ## Raspberry Pi
 
-You might want to buy a Raspberry Pi starter kit from [Canakit][2]. These kits include most of the parts you need to get a fully working Raspberry Pi.
+A good way to get most of the parts needed (except camera) is to buy a Raspberry Pi starter kit from [Canakit][2].
 
-|Quatity	|Item	|Cost	|Part #	|Link
-| -----		| -----	| -----	| -----	| -----
-|1	|Raspberry Pi 3	|$xxx	|xxx	|xxx
-|1	|Memory Card	|$xxx	|xxx	|xxx
-|1	|5V 2A AC/DC power	|$8	|xxx	|[link](https://www.adafruit.com/products/1995)
-|1	|Pi NoIR Camera	|$30	|xxx	|[link](https://www.adafruit.com/products/3100)
-|1	|Pi Camera Ribbon cable (2 meters)	|$6	|xxx	|[link](https://www.adafruit.com/products/2144)
-|1	|Pi Camera HDMI extension cable	|$15	|xxx	|[link](https://www.tindie.com/products/freto/pi-camera-hdmi-cable-extension/)
+|Quatity	|Item	|Cost	|Link
+| -----		| -----	| -----	| -----
+|1	|Raspberry Pi 3	|$35	|[element14](https://www.element14.com/community/community/raspberry-pi)
+|1	|16GB class 10 micro SD Memory Card	|$xxx	|xxx
+|1	|5V 2A AC/DC power	|$8	|[adafruit](https://www.adafruit.com/products/1995)
+|1	|Pi NoIR Camera	|$30	|[adafruit](https://www.adafruit.com/products/3100)
+|1	|Pi Camera Ribbon cable (2 meters)	|$6	|[adafruit](https://www.adafruit.com/products/2144)
+|1	|Pi Camera HDMI extension cable	|$15	|[tindie](https://www.tindie.com/products/freto/pi-camera-hdmi-cable-extension/)
+|4	|IR LED, 840-850 nm	|$1 each	|[sparkfun][irled_sparkfun]
+|1	|4-channel Logic Level Converter (Bi-Directional)	|$4	|[Sparkfun][loginlevelconverter_sparkfun], [Adafruit][loginlevelconverter_adafruit]
+
+ - 960 nm IR LEDs do not work well with Pi NoIR camera.
 
 ## Motors and encoders
-|Quatity	|Item	|Cost	|Part #	|Link
-| -----		| -----	| -----	| -----	| -----
-|1	|Stepper Motor	|$xxx	|xxx	|xxx
-|1	|Rotary Encoder	|$xxx	|xxx	|xxx
-|1	|12V AC/DC Adapter (for the Motor Driver)	|$xxx	|xxx	|xxx
+|Quatity	|Item	|Cost	|Link
+| -----		| -----	| -----	| -----
+|1	|Stepper Motor (12V, 0.33 A)	|$15	|[sparkfun](https://www.sparkfun.com/products/9238)
+|1	|Rotary Encoder ([Honeywell-600-128-CBL][honeywell_encoder_specs])	|$38	|[digitkey][digitkey_encoder]
+|1	|12V AC/DC Adapter (for the stepper motor)	|$xxx	|xxx
 
 ## Electronics
 
-|Quatity	|Item	|Cost	|Part #	|Link
-| -----		| -----	| -----	| -----	| -----
-|1	|Breadboard	|$xxx	|xxx	|xxx
-|1	|Jumper wires (M/M)	|$xxx	|xxx	|xxx
-|1	|Jumper wires (M/F)	|$xxx	|xxx	|xxx
-|1	|Jumper wires (F/F)	|$xxx	|xxx	|xxx
+|Quatity	|Item	|Cost	|Link
+| -----		| -----	| -----	| -----
+|1	|Breadboard	|$xxx	|xxx
+|1	|Jumper wires (M/M)	|$xxx	|xxx
+|1	|Jumper wires (M/F)	|$xxx	|xxx
+|1	|Jumper wires (F/F)	|$xxx	|xxx
 
 <a name="treadmill"></a>
 ## Treadmill
@@ -80,3 +88,8 @@ These are **Actobotics** parts from [ServoCity][1]
 
 [1]: http://servocity.com
 [2]: http://www.canakit.com/raspberry-pi-3-ultimate-kit.html
+[digitkey_encoder]: http://www.digikey.com/product-detail/en/600128CBL/600CS-ND/53504
+[honeywell_encoder_specs]: http://sensing.honeywell.com/600%20series_005940-2-en_final_12sep12.pdf
+[irled_sparkfun]: https://www.sparkfun.com/products/9469
+[loginlevelconverter_sparkfun]: https://www.sparkfun.com/products/12009
+[loginlevelconverter_adafruit]: https://www.adafruit.com/products/757

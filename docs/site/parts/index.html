@@ -90,12 +90,6 @@
                 
                 
                     <li >
-                        <a href="../manuscript/">manuscript</a>
-                    </li>
-                
-                
-                
-                    <li >
                         <a href="../about/">about</a>
                     </li>
                 
@@ -154,42 +148,51 @@
 
 <h1 id="parts-list">Parts List</h1>
 <h2 id="arduino">Arduino</h2>
+<p>Use the Teensy32 Arduino because it has a smaller form factor, more powerful processor, more low level interrupts, and more memory then an Arduino Unu R3. Use the Big Easy Motor Driver to use larger stepper motors.</p>
 <table>
 <thead>
 <tr>
 <th>Quatity</th>
 <th>Item</th>
 <th>Cost</th>
-<th>Part #</th>
 <th>Link</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td>Arduino Uno</td>
-<td>$xxx</td>
-<td>Uno</td>
-<td>xxx</td>
+<td>Arduino Uno R3</td>
+<td>$25</td>
+<td><a href="https://www.arduino.cc/en/main/arduinoBoardUno">arduino.cc</a></td>
 </tr>
 <tr>
 <td>1</td>
-<td>Motor Driver</td>
-<td>$xxx</td>
-<td>xxx</td>
-<td>xxx</td>
+<td>Teensy32</td>
+<td>$30</td>
+<td><a href="https://www.pjrc.com/store/teensy32.html">pjrc.com</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Easy Driver Motor Driver</td>
+<td>$15</td>
+<td><a href="https://www.sparkfun.com/products/12779">sparkfun</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Big Easy Driver Motor Driver</td>
+<td>$20</td>
+<td><a href="https://www.sparkfun.com/products/12859">sparkfun</a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="raspberry-pi">Raspberry Pi</h2>
-<p>You might want to buy a Raspberry Pi starter kit from <a href="http://www.canakit.com/raspberry-pi-3-ultimate-kit.html">Canakit</a>. These kits include most of the parts you need to get a fully working Raspberry Pi.</p>
+<p>A good way to get most of the parts needed (except camera) is to buy a Raspberry Pi starter kit from <a href="http://www.canakit.com/raspberry-pi-3-ultimate-kit.html">Canakit</a>.</p>
 <table>
 <thead>
 <tr>
 <th>Quatity</th>
 <th>Item</th>
 <th>Cost</th>
-<th>Part #</th>
 <th>Link</th>
 </tr>
 </thead>
@@ -197,47 +200,56 @@
 <tr>
 <td>1</td>
 <td>Raspberry Pi 3</td>
-<td>$xxx</td>
-<td>xxx</td>
-<td>xxx</td>
+<td>$35</td>
+<td><a href="https://www.element14.com/community/community/raspberry-pi">element14</a></td>
 </tr>
 <tr>
 <td>1</td>
-<td>Memory Card</td>
+<td>16GB class 10 micro SD Memory Card</td>
 <td>$xxx</td>
-<td>xxx</td>
 <td>xxx</td>
 </tr>
 <tr>
 <td>1</td>
 <td>5V 2A AC/DC power</td>
 <td>$8</td>
-<td>xxx</td>
-<td><a href="https://www.adafruit.com/products/1995">link</a></td>
+<td><a href="https://www.adafruit.com/products/1995">adafruit</a></td>
 </tr>
 <tr>
 <td>1</td>
 <td>Pi NoIR Camera</td>
 <td>$30</td>
-<td>xxx</td>
-<td><a href="https://www.adafruit.com/products/3100">link</a></td>
+<td><a href="https://www.adafruit.com/products/3100">adafruit</a></td>
 </tr>
 <tr>
 <td>1</td>
 <td>Pi Camera Ribbon cable (2 meters)</td>
 <td>$6</td>
-<td>xxx</td>
-<td><a href="https://www.adafruit.com/products/2144">link</a></td>
+<td><a href="https://www.adafruit.com/products/2144">adafruit</a></td>
 </tr>
 <tr>
 <td>1</td>
 <td>Pi Camera HDMI extension cable</td>
 <td>$15</td>
-<td>xxx</td>
-<td><a href="https://www.tindie.com/products/freto/pi-camera-hdmi-cable-extension/">link</a></td>
+<td><a href="https://www.tindie.com/products/freto/pi-camera-hdmi-cable-extension/">tindie</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>IR LED, 840-850 nm</td>
+<td>$1 each</td>
+<td><a href="https://www.sparkfun.com/products/9469">sparkfun</a></td>
+</tr>
+<tr>
+<td>1</td>
+<td>4-channel Logic Level Converter (Bi-Directional)</td>
+<td>$4</td>
+<td><a href="https://www.sparkfun.com/products/12009">Sparkfun</a>, <a href="https://www.adafruit.com/products/757">Adafruit</a></td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li>960 nm IR LEDs do not work well with Pi NoIR camera.</li>
+</ul>
 <h2 id="motors-and-encoders">Motors and encoders</h2>
 <table>
 <thead>
@@ -245,30 +257,26 @@
 <th>Quatity</th>
 <th>Item</th>
 <th>Cost</th>
-<th>Part #</th>
 <th>Link</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td>Stepper Motor</td>
-<td>$xxx</td>
-<td>xxx</td>
-<td>xxx</td>
+<td>Stepper Motor (12V, 0.33 A)</td>
+<td>$15</td>
+<td><a href="https://www.sparkfun.com/products/9238">sparkfun</a></td>
 </tr>
 <tr>
 <td>1</td>
-<td>Rotary Encoder</td>
-<td>$xxx</td>
-<td>xxx</td>
-<td>xxx</td>
+<td>Rotary Encoder (<a href="http://sensing.honeywell.com/600%20series_005940-2-en_final_12sep12.pdf">Honeywell-600-128-CBL</a>)</td>
+<td>$38</td>
+<td><a href="http://www.digikey.com/product-detail/en/600128CBL/600CS-ND/53504">digitkey</a></td>
 </tr>
 <tr>
 <td>1</td>
-<td>12V AC/DC Adapter (for the Motor Driver)</td>
+<td>12V AC/DC Adapter (for the stepper motor)</td>
 <td>$xxx</td>
-<td>xxx</td>
 <td>xxx</td>
 </tr>
 </tbody>
@@ -280,7 +288,6 @@
 <th>Quatity</th>
 <th>Item</th>
 <th>Cost</th>
-<th>Part #</th>
 <th>Link</th>
 </tr>
 </thead>
@@ -290,13 +297,11 @@
 <td>Breadboard</td>
 <td>$xxx</td>
 <td>xxx</td>
-<td>xxx</td>
 </tr>
 <tr>
 <td>1</td>
 <td>Jumper wires (M/M)</td>
 <td>$xxx</td>
-<td>xxx</td>
 <td>xxx</td>
 </tr>
 <tr>
@@ -304,13 +309,11 @@
 <td>Jumper wires (M/F)</td>
 <td>$xxx</td>
 <td>xxx</td>
-<td>xxx</td>
 </tr>
 <tr>
 <td>1</td>
 <td>Jumper wires (F/F)</td>
 <td>$xxx</td>
-<td>xxx</td>
 <td>xxx</td>
 </tr>
 </tbody>
