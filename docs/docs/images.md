@@ -20,7 +20,9 @@ th, td {
 <TABLE>
 <TR>
 	<TD>
+	<A HREF="../img/detailed-view.jpg">
 	<IMG SRC="../img/detailed-view.jpg" ALIGN="LEFT" WIDTH=300 style="border:1px solid gray">
+	</A>
 	</TD>
 	
 	<TD>

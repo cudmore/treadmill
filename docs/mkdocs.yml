@@ -6,6 +6,7 @@ site_favicon: favicon.ico
 
 theme: cinder
 #theme: readthedocs
+#theme: bootstrap
 
 pages:
 - home: index.md

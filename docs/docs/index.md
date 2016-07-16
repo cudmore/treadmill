@@ -19,11 +19,11 @@ The core system consists of an Arduino, a stepper motor and motor driver, and a 
 
 The Arduino can be controlled with serial commands and can be triggered with general purpose digital input-output (GPIO) pulses. By relying on serial commands and GPIO pulses, this system is not dependent on the details of other pieces of equipment already in place for an experiment and can be extended to new and unique experimental configurations.
 
-Using the provided Python code, an experiment can be controlled from a Python command prompt or a web browser interface.
+Using the provided Python code, an experiment can be controlled from a Python command prompt or a web browser interface. The python code will run on any computer (Windows, Mac, Linux) where Python is installed. Because of its low price, small footprint, GPIO pins, and dedicated camera we strongly suggest running all the Python code on a Raspberry Pi.
 
 <IMG SRC="http://blog.cudmore.io/triggercamera/img/triggercamera-minimized2.png" ALIGN=RIGHT WIDTH=350px>
 
-Optionally, if this code is run on a Raspberry Pi, we provide Python code to simultaneously trigger and time-stamp video recording during an experiment. Please see our [Trigger Camera][triggercamera] documentation for a full dscription of how to integrate video recording into this system
+Optionally, if this code is run on a Raspberry Pi, we provide Python code to simultaneously trigger and time-stamp video recording during an experiment. Please see the [Trigger Camera][triggercamera] documentation for a full description of how to integrate video recording into this system.
 
 We are routinely using this treadmill and video aquisition system while simultaneously acquiring in vivo two-photon images using ScanImage software (in Matlab) with National Instruments data acquisition cards.
 
@@ -31,7 +31,7 @@ See the [parts list](parts.md) for a full list of parts, prices, and links to bu
 
 ### Arduino
 
-The majority of Arduino compatible micro-controllers will work with the code provided. We suggest starting with an Arduino [Uno][35]. An good alternative Arduino compatible microcontroller is the [Teensy][49]. The Teensy is advantageous as it has a more powerful processor, provides more low level interrupts, and has more memory than an Arduino Uno.
+The majority of Arduino compatible micro-controllers will work with the code provided. We suggest starting with an Arduino [Uno][35]. A good alternative Arduino compatible microcontroller is the [Teensy][49]. The Teensy is advantageous as it has a more powerful processor, provides more low level interrupts, and has more memory than an Arduino Uno.
 
 ### Raspberry Pi
 
@@ -43,15 +43,25 @@ As the Raspberry Pi is running a full Linux operating system, the precision and 
 
 ###  Wiring the system
 
-- Wire the stepper motor to the motor driver
-- Wire the Arduino to the motor driver
-- Wire the rotary encoder to the Arduino
-- Wire the Arduino to existing lab equipment
-- Wire the Raspberry Pi to the Arduino.
+- Wire the stepper motor to the [Easy Driver](https://www.sparkfun.com/products/12779?_ga=1.168973987.329987807.1391311484) motor driver and the Easy Driver motor driver to the Arduino
+    - See Sparkun [Easy driver hook-up guide](https://learn.sparkfun.com/tutorials/easy-driver-hook-up-guide)
+    - See Sparkfun [Stepper motor quickstart](https://www.sparkfun.com/tutorials/400)
 
+- Wire the rotary encoder to the Arduino
+    - See the PJRC [Encoder Library Tutorial](https://www.pjrc.com/teensy/td_libs_Encoder.html)
+    
+- Wire the Arduino to existing lab equipment
+    - Wire the signal of each TTL line to an Arduino GPIO pin and wire the TTL line ground to the Arduino ground.
+    
+- Wire the Raspberry Pi to the Arduino.
+    - Wire GPIO pins for 'trigger' and 'frame clock' from Arduino to Raspberry Pi
+    - Wire a ground pin from the Arduino to a ground pin on the Raspberry Pi
+    
 Here, we are wiring the system to interact with ScanImage software via National Instruments DAQ boards. This can easily be modified by wiring the system to other in-place acquisition systems such as those from Scientifica, Bruger (Prarie), Zeiss, or Nikon.
 
 Keep in mind, the Raspberry Pi GPIO pins are **not** 5V tolerant. Use a 5V to 3.5V level shifter to wire the Raspberry Pi to 5V GPIO signals. A Teensy microcontroller is advantageous in that it will accept 5V GPIO input but only outputs 3.5V GPIO. Thus, a Teensy and Raspberry Pi GPIO pins can be directly wired without a level shifter.
+
+Remember, all devices **must have ground pins connected to each other**, this is easy to forget. In this setup, the ground pins on the following devices all need to be wired together (i) the stepper motor driver, (ii) the Arduino and (iii) the Raspberry Pi. A good strategy is to wire a ground pin of each device to one ground rail on a breadboard.
 
 <A HREF="img/treadmill_bb.png"><IMG SRC="img/treadmill_bb.png" WIDTH=450 style="border:0px solid gray"></A>
 
@@ -101,7 +111,7 @@ Download and install [Anaconda][1]. Anaconda is a [python][2] installation that 
 
 ###  Python libraries
 
-Install additional required python libraries using the included requirements.txt file
+Install additional required python libraries using `pip install xxx` where xxx is the name of the library. Alternatively, use the included requirements.txt file.
 
 `pip install -r requirements.txt`
 
@@ -115,8 +125,10 @@ Flask-SocketIO>=1.0
 platformio>=2.8.5
 plotly>=1.9.6
 pyserial>=3.0.1
+pandas
 ```
-Required python libraries on Raspberry Pi
+
+Required python libraries to use the Raspberry Pi camera
 
 `pip install -r raspberry_requirements.txt`
 
@@ -124,6 +136,10 @@ Required python libraries on Raspberry Pi
 picamera
 RPi.GPIO
 ```
+
+If running Python code on a Raspberry Pi (with or without the Raspberry Camera), pandas must be installed as follows
+
+    sudo apt-get install python-pandas
 
 ## Running an experiment
 
