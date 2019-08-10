@@ -1,14 +1,12 @@
 #20160307
 
-import plotly
-print 'plotly.__version__=', plotly.__version__  # version >1.9.4 required
 import plotly.graph_objs as go
 
 import pandas
 import numpy as np
 import os.path
 import glob
-import ntpath #this shuod get paths on windws?
+import ntpath #this should get paths on windows?
 
 class treadmillAnalysis():
 	def __init__(self):

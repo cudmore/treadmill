@@ -6,7 +6,8 @@ from flask import Flask, abort, render_template, send_file, request
 from flask.ext.socketio import SocketIO, emit
 from flaskext.markdown import Markdown
 
-import random # testing
+import plotly
+import random  # testing
 import os, time, random
 from datetime import datetime
 from threading import Thread
